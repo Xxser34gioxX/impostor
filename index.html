@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Impostor" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/impostor/vite.svg" />
     <link rel="manifest" href="/impostor/manifest.json" />
-    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/impostor/icons/icon-192.png" />
     <title>Impostor — Juego</title>
     <script type="module" crossorigin src="/impostor/assets/index-BTCaYthP.js"></script>
     <link rel="stylesheet" crossorigin href="/impostor/assets/index-CNP4TSCj.css">
@@ -20,7 +20,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').then(registration => {
+          navigator.serviceWorker.register('/impostor/sw.js').then(registration => {
             console.log('Service Worker registrado:', registration);
           }).catch(error => {
             console.log('Error al registrar Service Worker:', error);
