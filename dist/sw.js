@@ -1,16 +1,18 @@
-const CACHE_NAME = 'impostor-v1';
-const urlsToCache = [
+const CACHE_NAME = 'impostor-v2';
+const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json'
 ];
 
+// A runtime cache for other requests (assets, API calls, etc.)
+const RUNTIME = 'impostor-runtime';
+
 // Install event - cache files
 self.addEventListener('install', event => {
+  // Pre-cache important app shell files
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS))
   );
   self.skipWaiting();
 });
@@ -33,25 +35,39 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, fall back to network
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) {
-        return response;
-      }
-      return fetch(event.request).then(response => {
-        // Cache successful responses
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
-        }
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseToCache);
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+
+  // Same-origin requests: try cache first, then network fallback
+  if (url.origin === location.origin) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) return cachedResponse;
+
+        return caches.open(RUNTIME).then(cache => {
+          return fetch(event.request).then(networkResponse => {
+            // Don't cache opaque or error responses
+            if (networkResponse && networkResponse.status === 200) {
+              try {
+                cache.put(event.request, networkResponse.clone());
+              } catch (e) {
+                // Some requests might be cross-origin or invalid to cache
+              }
+            }
+            return networkResponse;
+          }).catch(() => {
+            // If both network and cache fail, show index.html for SPA navigation
+            return caches.match('/index.html');
+          });
         });
-        return response;
-      }).catch(() => {
-        // Return cached index.html as fallback for offline
-        return caches.match('/index.html');
-      });
-    })
-  );
+      })
+    );
+  } else {
+    // For cross-origin resources, just try network then cache fallback
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+  }
 });
