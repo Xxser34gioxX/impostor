@@ -24,6 +24,9 @@ export default function App() {
   const [numImpostors, setNumImpostors] = useState(1);
   const [selectedWord, setSelectedWord] = useState(null);
   const [impostorIds, setImpostorIds] = useState([]);
+  const [starting, setStarting] = useState(false); // show a short animation when starting
+  const [revealImpostors, setRevealImpostors] = useState(false);
+  const [revealStarter, setRevealStarter] = useState(false);
   const [started, setStarted] = useState(false);
   const [currentBigCard, setCurrentBigCard] = useState(null); // player id for big view
   const [firstPlayerId, setFirstPlayerId] = useState(null);
@@ -81,8 +84,21 @@ export default function App() {
     // reset players clicked and roleRevealed
     setPlayers(p => p.map(pl => ({ ...pl, clicked: false, roleRevealed: null })));
     setStarted(true);
+    setRevealImpostors(false);
+    setRevealStarter(false);
     setResultsShown(false);
     setFirstPlayerId(ids[randInt(ids.length)]);
+  }
+
+  function startWithAnimation() {
+    // play a short animation/feedback before starting the game
+    if (players.length < MIN_PLAYERS) return alert(`Necesitas al menos ${MIN_PLAYERS} jugadores`);
+    setStarting(true);
+    // small delay so users see animation (800ms)
+    setTimeout(() => {
+      setStarting(false);
+      startGame();
+    }, 800);
   }
 
   function endToMenu() {
@@ -92,6 +108,8 @@ export default function App() {
     setImpostorIds([]);
     setCurrentBigCard(null);
     setResultsShown(false);
+    setRevealImpostors(false);
+    setRevealStarter(false);
   }
 
   function revealForPlayer(id) {
@@ -114,6 +132,8 @@ export default function App() {
     setStarted(false);
     setCurrentBigCard(null);
     setResultsShown(false);
+    setRevealImpostors(false);
+    setRevealStarter(false);
   }
 
   function toggleCategory(cat){
@@ -126,6 +146,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4">
+      {starting && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white p-6 rounded-xl flex flex-col items-center gap-3 shadow-xl">
+            <div className="w-14 h-14 border-4 border-t-red-600 border-slate-200 rounded-full animate-spin" />
+            <div className="font-semibold">Iniciando partida…</div>
+          </div>
+        </div>
+      )}
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-4">
         <h1 className="text-2xl font-bold text-center mb-3">Juego del impostor — réplica móvil</h1>
 
@@ -155,7 +183,10 @@ export default function App() {
               </div>
               <div className="mt-2 flex gap-2">
                 <button className="flex-1 rounded px-3 py-2 bg-blue-500 text-white" onClick={addPlayer}>Añadir jugador</button>
-                <button className="flex-1 rounded px-3 py-2 bg-amber-400 text-black" onClick={() => setPlayers(p => p.map((pl, i) => ({ ...pl, name: `Jugador ${i + 1}` })))}>Reset nombres</button>
+                <button className="flex-1 rounded px-3 py-2 bg-amber-400 text-black" onClick={() => {
+                  if (!confirm('¿Estás seguro que quieres resetear los nombres de todos los jugadores?')) return;
+                  setPlayers(p => p.map((pl, i) => ({ ...pl, name: `Jugador ${i + 1}` })));
+                }}>Reset nombres</button>
               </div>
             </section>
 
@@ -197,8 +228,11 @@ export default function App() {
             </section>
 
             <div className="flex gap-2">
-              <button className="flex-1 rounded px-3 py-2 bg-green-500 text-white" onClick={startGame}>Iniciar partida</button>
-              <button className="flex-1 rounded px-3 py-2 bg-slate-200" onClick={() => { setPlayers(p => p.slice(0, MIN_PLAYERS)); }}>Volver mínimo</button>
+              <button className="flex-1 rounded px-3 py-2 bg-green-500 text-white" onClick={startWithAnimation}>Iniciar partida</button>
+              <button className="flex-1 rounded px-3 py-2 bg-slate-200" onClick={() => {
+                if (!confirm('¿Estás seguro que quieres volver al número mínimo de jugadores? Se eliminarán los jugadores extra.')) return;
+                setPlayers(p => p.slice(0, MIN_PLAYERS));
+              }}>Volver mínimo</button>
             </div>
           </div>
         )}
@@ -206,7 +240,9 @@ export default function App() {
         {started && (
           <div>
             <div className="mb-3">
-              <div className="text-sm">Jugadores: {players.length} • Impostores: {numImpostors} • Empieza: Jugador {firstPlayerId}</div>
+              <div className="text-sm">Jugadores: {players.length}</div>
+              {revealImpostors && <div className="text-sm text-red-600 font-semibold mt-1">Impostores: {numImpostors}</div>}
+              {revealStarter && <div className="text-sm text-green-600 font-semibold mt-1">Empieza: Jugador {firstPlayerId}</div>}
               <div className="text-xs text-slate-500">(Pulsa tu casilla para ver tu rol en privado)</div>
             </div>
 
@@ -286,8 +322,12 @@ export default function App() {
             )}
 
             <div className="mt-3 flex gap-2">
+            {/* controls during the running game: reveal impostors & reveal starter + view results */}
+            <div className="mt-3 flex gap-2">
+              <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
+              <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
               <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { if (!allRevealed()) return alert('Todos deben ver su rol antes de ver resultados'); showResults(); }}>Ver resultados</button>
-              <button className="flex-1 rounded px-3 py-2 bg-slate-200" onClick={endToMenu}>Salir al menú</button>
+            </div>
             </div>
 
             {resultsShown && (
@@ -304,7 +344,7 @@ export default function App() {
 
                 <div className="mt-3 flex gap-2">
                   <button className="flex-1 rounded px-3 py-2 bg-green-500 text-white" onClick={newGameKeepPlayers}>Nueva partida</button>
-                  <button className="flex-1 rounded px-3 py-2 bg-slate-200" onClick={endToMenu}>Salir al menú</button>
+                  <button className="flex-1 rounded px-3 py-2 bg-blue-500 text-white" onClick={endToMenu}>Salir al menú</button>
                 </div>
               </div>
             )}
