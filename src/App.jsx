@@ -31,6 +31,10 @@ export default function App() {
   const [currentBigCard, setCurrentBigCard] = useState(null); // player id for big view
   const [firstPlayerId, setFirstPlayerId] = useState(null);
   const [resultsShown, setResultsShown] = useState(false);
+
+  const [gameStartedMessage, setGameStartedMessage] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  
   // categories available (derived from WORD_BANK)
   const allCategories = useMemo(() => Array.from(new Set(WORD_BANK.map(w => w.category))).sort(), []);
   // counts per category (used in UI)
@@ -56,7 +60,7 @@ export default function App() {
   function removePlayer(id) {
     setPlayers(p => p.filter(x => x.id !== id));
   }
-
+  
   useEffect(() => {
     // adjust max impostors: at most players - 1, at least 1
     const max = Math.max(1, players.length - 1);
@@ -67,6 +71,7 @@ export default function App() {
     if (players.length < MIN_PLAYERS) return alert(`Necesitas al menos ${MIN_PLAYERS} jugadores`);
   // pick random word from selected categories
   const wordPool = WORD_BANK.filter(w => selectedCategories.includes(w.category));
+  setGameStartedMessage(true);
   if (wordPool.length === 0) return alert('No hay palabras en las categorías seleccionadas. Selecciona al menos una categoría.');
   const pick = wordPool[randInt(wordPool.length)];
     setSelectedWord(pick);
@@ -89,6 +94,15 @@ export default function App() {
     setResultsShown(false);
     setFirstPlayerId(ids[randInt(ids.length)]);
   }
+
+  {gameStartedMessage && (
+  <div className="mb-4 p-3 bg-green-100 border border-green-400 rounded">
+    <div className="font-bold text-green-700">La partida se ha iniciado</div>
+    <div className="text-sm text-slate-700 mt-1">
+      Jugadores: {players.length}
+    </div>
+  </div>
+  )}
 
   function startWithAnimation() {
     // play a short animation/feedback before starting the game
@@ -264,57 +278,73 @@ export default function App() {
                 </div>
             </div>
 
-            {/* big card modal-ish area */}
+           {/* big card modal-ish area */}
             {currentBigCard && (
               <div className="fixed inset-0 flex items-end md:items-center justify-center p-4 pointer-events-none">
-                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4">
+                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4 animate-scale-up">
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="text-lg font-bold">{players.find(p => p.id === currentBigCard)?.name}</div>
+                      <div className="text-lg font-bold">
+                        {players.find(p => p.id === currentBigCard)?.name}
+                      </div>
                       <div className="text-xs text-slate-500">Jugador {currentBigCard}</div>
                     </div>
                     <div>
-                      <button className="px-3 py-1 rounded bg-slate-200" onClick={() => setCurrentBigCard(null)}>Cerrar</button>
+                      <button
+                        className="px-3 py-1 rounded bg-slate-200"
+                        onClick={() => setCurrentBigCard(null)}
+                      >
+                        Cerrar
+                      </button>
                     </div>
                   </div>
 
+                  {/* Mensaje de categoría */}
                   <div className="mt-3">
-                    <div className="text-sm">Categoría: <span className="font-semibold">{showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}</span></div>
+                    <div className="text-sm">
+                      Categoría:{" "}
+                      <span className="font-semibold">
+                        {showClassForAll ? selectedWord?.category : (selectedWord ? "???" : "")}
+                      </span>
+                    </div>
+                  </div>
 
-                    {/* big card area: click on the card to reveal (or use button) */}
-                    <div className="mt-3">
+                  {/* big card area con animación flip */}
+                  <div className="mt-3">
+                    <div
+                      className="relative w-full h-40 cursor-pointer perspective"
+                      onClick={() => {
+                        const pl = players.find(p => p.id === currentBigCard);
+                        if (pl && !pl.clicked) revealForPlayer(currentBigCard);
+                        setFlipped(prev => !prev);
+                      }}
+                    >
                       <div
-                        className="p-4 bg-slate-50 rounded cursor-pointer select-none"
-                        onClick={() => {
-                          // if not clicked yet, reveal; if already clicked do nothing
-                          const pl = players.find(p => p.id === currentBigCard);
-                          if(pl && !pl.clicked) revealForPlayer(currentBigCard);
-                        }}
+                        className={`transition-transform duration-700 transform ${
+                          flipped ? "rotate-y-180" : ""
+                        }`}
                       >
-                        {players.find(p => p.id === currentBigCard)?.clicked ? (
-                          players.find(p => p.id === currentBigCard)?.roleRevealed === 'impostor' ? (
-                            <div className="text-red-600 font-bold text-xl text-center">Eres IMPOSTOR</div>
+                        {/* FRONT */}
+                        <div className="absolute inset-0 backface-hidden flex items-center justify-center bg-slate-200 rounded">
+                          <div className="text-center">
+                            <div className="text-slate-600 text-sm">Pulsa para ver tu rol</div>
+                            <div className="mt-2 text-xs text-slate-500">
+                              (Privado en esta pantalla)
+                            </div>
+                          </div>
+                        </div>
+                        {/* BACK */}
+                        <div className="absolute inset-0 backface-hidden rotate-y-180 flex items-center justify-center bg-white rounded">
+                          {players.find(p => p.id === currentBigCard)?.roleRevealed === "impostor" ? (
+                            <div className="text-red-600 font-bold text-xl">Eres IMPOSTOR</div>
                           ) : (
                             <div className="text-center">
                               <div className="text-slate-600 text-sm">Palabra:</div>
                               <div className="font-semibold text-xl">{selectedWord?.word}</div>
                             </div>
-                          )
-                        ) : (
-                          <div className="text-center">
-                            <div className="text-slate-600 text-sm">Pulsa para ver tu rol</div>
-                            <div className="mt-2 text-xs text-slate-500">(Se mostrará privadamente en esta pantalla)</div>
-                          </div>
-                        )}
-                      </div>
-
-                      {!players.find(p => p.id === currentBigCard)?.clicked && (
-                        <div className="mt-3">
-                          <button className="w-full rounded px-3 py-2 bg-blue-500 text-white" onClick={() => { revealForPlayer(currentBigCard); }}>
-                            Ver mi rol (privado)
-                          </button>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>

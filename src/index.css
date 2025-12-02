@@ -4,3 +4,22 @@
 
 /* small helper spacing */
 body { @apply bg-slate-50 }
+.perspective {
+  perspective: 1000px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.transition-transform {
+  transition: transform 0.6s;
+}
+@keyframes scaleUp {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.animate-scale-up {
+  animation: scaleUp 0.3s ease forwards;
+}
