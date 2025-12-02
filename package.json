@@ -2,7 +2,7 @@
   "name": "impostor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Xxser34gioxX.github.io/MP",
+  "homepage": "https://Xxser34gioxX.github.io/impostor",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
