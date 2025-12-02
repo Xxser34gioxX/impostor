@@ -1,5 +1,7 @@
 # Impostor — juego (proyecto)
 
+**Creator**: Sergio Lopez Feito — 2025
+
 Pequeño proyecto React + Vite + Tailwind que implementa una réplica móvil-friendly del "juego del impostor".
 
 Pasos rápidos (PowerShell):
