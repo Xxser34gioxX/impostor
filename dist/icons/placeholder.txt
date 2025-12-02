@@ -1,0 +1,14 @@
+⚠️ IMPORTANTE: Reemplaza estos archivos con tus propios iconos
+
+Necesitas crear/colocar los siguientes archivos PNG en esta carpeta:
+- icon-192.png (192x192 píxeles)
+- icon-512.png (512x512 píxeles)
+- icon-192-maskable.png (192x192, para adaptive icons en Android)
+- icon-512-maskable.png (512x512, para adaptive icons en Android)
+
+Puedes:
+1. Crear un logo simple en Canva/Figma y exportar como PNG en esos tamaños
+2. O usar un generador online: https://www.pwabuilder.com/imageGenerator
+3. O usar ImageMagick/similar para redimensionar un logo existente
+
+Por ahora, la PWA funcionará sin iconos personalizados (usará un placeholder del navegador).

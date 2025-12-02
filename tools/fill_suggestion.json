@@ -1,0 +1,2404 @@
+{
+  "fillers": [
+    {
+      "word": "naturaleza extra 1",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 2",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 3",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 4",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 5",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 6",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 7",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 8",
+      "category": "naturaleza"
+    },
+    {
+      "word": "naturaleza extra 9",
+      "category": "naturaleza"
+    },
+    {
+      "word": "comida extra 1",
+      "category": "comida"
+    },
+    {
+      "word": "comida extra 2",
+      "category": "comida"
+    },
+    {
+      "word": "comida extra 3",
+      "category": "comida"
+    },
+    {
+      "word": "comida extra 4",
+      "category": "comida"
+    },
+    {
+      "word": "comida extra 5",
+      "category": "comida"
+    },
+    {
+      "word": "deportes extra 1",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 2",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 3",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 4",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 5",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 6",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 7",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 8",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 9",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 10",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 11",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 12",
+      "category": "deportes"
+    },
+    {
+      "word": "deportes extra 13",
+      "category": "deportes"
+    },
+    {
+      "word": "marcas extra 1",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 2",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 3",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 4",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 5",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 6",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 7",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 8",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 9",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 10",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 11",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 12",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 13",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 14",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 15",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 16",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 17",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 18",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 19",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 20",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 21",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 22",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 23",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 24",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 25",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 26",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 27",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 28",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 29",
+      "category": "marcas"
+    },
+    {
+      "word": "marcas extra 30",
+      "category": "marcas"
+    },
+    {
+      "word": "vehiculos extra 1",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 2",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 3",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 4",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 5",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 6",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 7",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 8",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 9",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 10",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 11",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 12",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 13",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 14",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 15",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 16",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 17",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 18",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 19",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 20",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 21",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 22",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 23",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 24",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 25",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 26",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 27",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 28",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 29",
+      "category": "vehiculos"
+    },
+    {
+      "word": "vehiculos extra 30",
+      "category": "vehiculos"
+    },
+    {
+      "word": "herramientas extra 1",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 2",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 3",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 4",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 5",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 6",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 7",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 8",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 9",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 10",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 11",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 12",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 13",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 14",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 15",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 16",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 17",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 18",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 19",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 20",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 21",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 22",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 23",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 24",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 25",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 26",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 27",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 28",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 29",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 30",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 31",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 32",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 33",
+      "category": "herramientas"
+    },
+    {
+      "word": "herramientas extra 34",
+      "category": "herramientas"
+    },
+    {
+      "word": "superpoderes extra 1",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 2",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 3",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 4",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 5",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 6",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 7",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 8",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 9",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 10",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 11",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 12",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 13",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 14",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 15",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 16",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 17",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 18",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 19",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 20",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 21",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 22",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 23",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 24",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 25",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 26",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 27",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 28",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 29",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 30",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 31",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 32",
+      "category": "superpoderes"
+    },
+    {
+      "word": "superpoderes extra 33",
+      "category": "superpoderes"
+    },
+    {
+      "word": "emociones extra 1",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 2",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 3",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 4",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 5",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 6",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 7",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 8",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 9",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 10",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 11",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 12",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 13",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 14",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 15",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 16",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 17",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 18",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 19",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 20",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 21",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 22",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 23",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 24",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 25",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 26",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 27",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 28",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 29",
+      "category": "emociones"
+    },
+    {
+      "word": "emociones extra 30",
+      "category": "emociones"
+    },
+    {
+      "word": "inventos extra 1",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 2",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 3",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 4",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 5",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 6",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 7",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 8",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 9",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 10",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 11",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 12",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 13",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 14",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 15",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 16",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 17",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 18",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 19",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 20",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 21",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 22",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 23",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 24",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 25",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 26",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 27",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 28",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 29",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 30",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 31",
+      "category": "inventos"
+    },
+    {
+      "word": "inventos extra 32",
+      "category": "inventos"
+    },
+    {
+      "word": "juegos extra 1",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 2",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 3",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 4",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 5",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 6",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 7",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 8",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 9",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 10",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 11",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 12",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 13",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 14",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 15",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 16",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 17",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 18",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 19",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 20",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 21",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 22",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 23",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 24",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 25",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 26",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 27",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 28",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 29",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 30",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 31",
+      "category": "juegos"
+    },
+    {
+      "word": "juegos extra 32",
+      "category": "juegos"
+    },
+    {
+      "word": "cuerpo extra 1",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 2",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 3",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 4",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 5",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 6",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 7",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 8",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 9",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 10",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 11",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 12",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 13",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 14",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 15",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 16",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 17",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 18",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 19",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 20",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 21",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 22",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 23",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 24",
+      "category": "cuerpo"
+    },
+    {
+      "word": "cuerpo extra 25",
+      "category": "cuerpo"
+    },
+    {
+      "word": "escuela extra 1",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 2",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 3",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 4",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 5",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 6",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 7",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 8",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 9",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 10",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 11",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 12",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 13",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 14",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 15",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 16",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 17",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 18",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 19",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 20",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 21",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 22",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 23",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 24",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 25",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 26",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 27",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 28",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 29",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 30",
+      "category": "escuela"
+    },
+    {
+      "word": "escuela extra 31",
+      "category": "escuela"
+    },
+    {
+      "word": "amor extra 1",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 2",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 3",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 4",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 5",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 6",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 7",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 8",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 9",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 10",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 11",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 12",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 13",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 14",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 15",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 16",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 17",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 18",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 19",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 20",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 21",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 22",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 23",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 24",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 25",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 26",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 27",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 28",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 29",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 30",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 31",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 32",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 33",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 34",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 35",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 36",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 37",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 38",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 39",
+      "category": "amor"
+    },
+    {
+      "word": "amor extra 40",
+      "category": "amor"
+    },
+    {
+      "word": "pasatiempos extra 1",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 2",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 3",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 4",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 5",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 6",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 7",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 8",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 9",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 10",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 11",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 12",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 13",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 14",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 15",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 16",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 17",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 18",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 19",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 20",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 21",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 22",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 23",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 24",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 25",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 26",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 27",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 28",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 29",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 30",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 31",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 32",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 33",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 34",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 35",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 36",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 37",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 38",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 39",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 40",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 41",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "pasatiempos extra 42",
+      "category": "pasatiempos"
+    },
+    {
+      "word": "paises extra 1",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 2",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 3",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 4",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 5",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 6",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 7",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 8",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 9",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 10",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 11",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 12",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 13",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 14",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 15",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 16",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 17",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 18",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 19",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 20",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 21",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 22",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 23",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 24",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 25",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 26",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 27",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 28",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 29",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 30",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 31",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 32",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 33",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 34",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 35",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 36",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 37",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 38",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 39",
+      "category": "paises"
+    },
+    {
+      "word": "paises extra 40",
+      "category": "paises"
+    },
+    {
+      "word": "ciudades extra 1",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 2",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 3",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 4",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 5",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 6",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 7",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 8",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 9",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 10",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 11",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 12",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 13",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 14",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 15",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 16",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 17",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 18",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 19",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 20",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 21",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 22",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 23",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 24",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 25",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 26",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 27",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 28",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 29",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 30",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 31",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 32",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 33",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 34",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 35",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 36",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 37",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 38",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 39",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 40",
+      "category": "ciudades"
+    },
+    {
+      "word": "ciudades extra 41",
+      "category": "ciudades"
+    },
+    {
+      "word": "peliculas extra 1",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 2",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 3",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 4",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 5",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 6",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 7",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 8",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 9",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 10",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 11",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 12",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 13",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 14",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 15",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 16",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 17",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 18",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 19",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 20",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 21",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 22",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 23",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 24",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 25",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 26",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 27",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 28",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 29",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 30",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 31",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 32",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 33",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 34",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 35",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 36",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 37",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 38",
+      "category": "peliculas"
+    },
+    {
+      "word": "peliculas extra 39",
+      "category": "peliculas"
+    },
+    {
+      "word": "adjetivos extra 1",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 2",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 3",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 4",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 5",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 6",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 7",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 8",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 9",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 10",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 11",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 12",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 13",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 14",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 15",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 16",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 17",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 18",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 19",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 20",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 21",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 22",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 23",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 24",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 25",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 26",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 27",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 28",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 29",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 30",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 31",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 32",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 33",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 34",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 35",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 36",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 37",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 38",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 39",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 40",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 41",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 42",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 43",
+      "category": "adjetivos"
+    },
+    {
+      "word": "adjetivos extra 44",
+      "category": "adjetivos"
+    },
+    {
+      "word": "personajes extra 1",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 2",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 3",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 4",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 5",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 6",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 7",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 8",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 9",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 10",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 11",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 12",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 13",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 14",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 15",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 16",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 17",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 18",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 19",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 20",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 21",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 22",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 23",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 24",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 25",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 26",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 27",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 28",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 29",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 30",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 31",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 32",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 33",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 34",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 35",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 36",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 37",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 38",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 39",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 40",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 41",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 42",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 43",
+      "category": "personajes"
+    },
+    {
+      "word": "personajes extra 44",
+      "category": "personajes"
+    }
+  ],
+  "counts": {
+    "naturaleza": 41,
+    "lugares": 50,
+    "objetos": 60,
+    "comida": 45,
+    "deportes": 37,
+    "profesiones y personas": 55,
+    "marcas": 20,
+    "vehiculos": 20,
+    "herramientas": 16,
+    "superpoderes": 17,
+    "emociones": 20,
+    "inventos": 18,
+    "juegos": 18,
+    "cuerpo": 25,
+    "escuela": 19,
+    "amor": 10,
+    "pasatiempos": 8,
+    "paises": 10,
+    "ciudades": 9,
+    "peliculas": 11,
+    "adjetivos": 6,
+    "personajes": 6
+  }
+}

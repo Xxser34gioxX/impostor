@@ -1,0 +1,11 @@
+const fs = require('fs');
+const path = require('path');
+const file = path.join(__dirname, '..', 'src', 'file', 'words.json');
+const data = JSON.parse(fs.readFileSync(file,'utf8'));
+const counts = {};
+data.forEach(w => { counts[w.category] = (counts[w.category]||0)+1; });
+console.log('Totals per category:');
+Object.keys(counts).sort().forEach(k => console.log(k + ': ' + counts[k]));
+const TARGET = 70;
+console.log('\nMissing to reach ' + TARGET + ' each:');
+Object.keys(counts).sort().forEach(k => console.log(k + ': ' + Math.max(0, TARGET - counts[k])));
