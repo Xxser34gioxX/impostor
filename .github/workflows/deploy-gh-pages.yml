@@ -28,4 +28,7 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use a personal access token stored in GH secret GH_PAGES_TOKEN.
+          # If you haven't added it yet, follow the instructions I gave to create a PAT
+          # and add it under Settings → Secrets → Actions → New repository secret.
+          token: ${{ secrets.GH_PAGES_TOKEN }}
