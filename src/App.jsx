@@ -278,72 +278,48 @@ export default function App() {
                 </div>
             </div>
 
-           {/* big card modal-ish area */}
+           
+            {/* big card modal-ish area */}
             {currentBigCard && (
               <div className="fixed inset-0 flex items-end md:items-center justify-center p-4 pointer-events-none">
-                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4 animate-scale-up">
+                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4">
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="text-lg font-bold">
-                        {players.find(p => p.id === currentBigCard)?.name}
-                      </div>
+                      <div className="text-lg font-bold">{players.find(p => p.id === currentBigCard)?.name}</div>
                       <div className="text-xs text-slate-500">Jugador {currentBigCard}</div>
                     </div>
                     <div>
-                      <button
-                        className="px-3 py-1 rounded bg-slate-200"
-                        onClick={() => setCurrentBigCard(null)}
-                      >
-                        Cerrar
-                      </button>
+                      <button className="px-3 py-1 rounded bg-slate-200" onClick={() => setCurrentBigCard(null)}>Cerrar</button>
                     </div>
                   </div>
-
-                  {/* Mensaje de categoría */}
+                  <hr className="my-2" />
                   <div className="mt-3">
-                    <div className="text-sm">
-                      Categoría:{" "}
-                      <span className="font-semibold">
-                        {showClassForAll ? selectedWord?.category : (selectedWord ? "???" : "")}
-                      </span>
-                    </div>
-                  </div>
+                    <div className="text-sm">Categoría: <span className="font-semibold">{showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}</span></div>
 
-                  {/* big card area con animación flip */}
-                  <div className="mt-3">
-                    <div
-                      className="relative w-full h-40 cursor-pointer perspective"
-                      onClick={() => {
-                        const pl = players.find(p => p.id === currentBigCard);
-                        if (pl && !pl.clicked) revealForPlayer(currentBigCard);
-                        setFlipped(prev => !prev);
-                      }}
-                    >
+                    {/* big card area: click on the card to reveal (or use button) */}
+                    <div className="mt-3">
                       <div
-                        className={`transition-transform duration-700 transform ${
-                          flipped ? "rotate-y-180" : ""
-                        }`}
+                        className="p-4 bg-slate-50 rounded cursor-pointer select-none"
+                        onClick={() => {
+                          const pl = players.find(p => p.id === currentBigCard);
+                          if(pl && !pl.clicked) revealForPlayer(currentBigCard);
+                        }}
                       >
-                        {/* FRONT */}
-                        <div className="absolute inset-0 backface-hidden flex items-center justify-center bg-slate-200 rounded">
+                        {players.find(p => p.id === currentBigCard)?.clicked ? (
+                        players.find(p => p.id === currentBigCard)?.roleRevealed === 'impostor' ? (
+                          <div className="text-red-600 font-bold text-xl text-center">Eres IMPOSTOR</div>
+                        ) : (
                           <div className="text-center">
-                            <div className="text-slate-600 text-sm">Pulsa para ver tu rol</div>
-                            <div className="mt-2 text-xs text-slate-500">
-                              (Privado en esta pantalla)
-                            </div>
+                            <div className="text-slate-600 text-sm">Palabra:</div>
+                            <div className="font-semibold text-xl">{selectedWord?.word}</div>
                           </div>
+                        )
+                      ) : (
+                        <div className="text-center">
+                          <div className="text-slate-600 text-sm">Pulsa para ver tu rol</div>
+                          <div className="mt-2 text-xs text-slate-500">(Se mostrará privadamente en esta pantalla)</div>
                         </div>
-                        {/* BACK */}
-                        <div className="absolute inset-0 backface-hidden rotate-y-180 flex items-center justify-center bg-white rounded">
-                          {players.find(p => p.id === currentBigCard)?.roleRevealed === "impostor" ? (
-                            <div className="text-red-600 font-bold text-xl">Eres IMPOSTOR</div>
-                          ) : (
-                            <div className="text-center">
-                              <div className="text-slate-600 text-sm">Palabra:</div>
-                              <div className="font-semibold text-xl">{selectedWord?.word}</div>
-                            </div>
-                          )}
-                        </div>
+                      )}
                       </div>
                     </div>
                   </div>
