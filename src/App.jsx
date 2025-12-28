@@ -45,6 +45,15 @@ export default function App() {
     WORD_BANK.forEach(w => { map[w.category] = (map[w.category] || 0) + 1; });
     return map;
   }, []);
+  const filteredCategoryCounts = useMemo(() => {
+    const map = {};
+    WORD_BANK.forEach(w => {
+      if (!lightMode || !offensiveWords.includes(w.word)) {
+        map[w.category] = (map[w.category] || 0) + 1;
+      }
+    });
+    return map;
+  }, [lightMode]);
   const [selectedCategories, setSelectedCategories] = useState(() => allCategories.slice());
 
   const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub"];
@@ -242,7 +251,7 @@ export default function App() {
                 {randomImpostors && (
                   <label className="flex items-center justify-between gap-2 ml-4">
                     <span>Máximo impostores</span>
-                    <input type="number" min="1" max={players.length - 1} value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1 w-16" />
+                    <input type="number" min="2" max={players.length - 1} value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1 w-16" />
                   </label>
                 )}
               </div>
@@ -263,7 +272,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                      <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
+                      <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({filteredCategoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
@@ -372,7 +381,8 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { if (!allRevealed()) return alert('Todos deben ver su rol antes de ver resultados'); showResults(); }}>Ver resultados</button>
+              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={newGameKeepPlayers}>Siguiente partida</button>
+              <button className="flex-1 rounded px-3 py-2 bg-blue-500 text-white" onClick={endToMenu}>Salir al inicio</button>
             </div>
             </div>
 
@@ -402,8 +412,8 @@ export default function App() {
       </div>
 
       {mostrarModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-6 rounded-xl max-w-4xl max-h-[80vh] overflow-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setMostrarModal(false)}>
+          <div className="bg-white p-6 rounded-xl max-w-4xl max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Categorías y Palabras</h2>
               <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => setMostrarModal(false)}>Cerrar</button>
