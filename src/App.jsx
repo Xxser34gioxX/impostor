@@ -51,6 +51,7 @@ export default function App() {
 
   const [lightMode, setLightMode] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState(new Set(allCategories));
   function updatePlayer(id, patch) {
     setPlayers(p => p.map(pl => (pl.id === id ? { ...pl, ...patch } : pl)));
   }
@@ -166,6 +167,18 @@ export default function App() {
   function selectAllCategories(){ setSelectedCategories(allCategories.slice()); }
 
   function clearAllCategories(){ setSelectedCategories([]); }
+
+  function toggleExpanded(cat) {
+    setExpandedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(cat)) {
+        newSet.delete(cat);
+      } else {
+        newSet.add(cat);
+      }
+      return newSet;
+    });
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4">
@@ -409,13 +422,18 @@ export default function App() {
               <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => setMostrarModal(false)}>Cerrar</button>
             </div>
             {allCategories.map(cat => {
+              const isExpanded = expandedCategories.has(cat);
               const wordsInCat = WORD_BANK.filter(w => w.category === cat && (!lightMode || !offensiveWords.includes(w.word)));
               return (
                 <div key={cat} className="mb-6">
-                  <h3 className="text-lg font-bold uppercase text-blue-600 mb-2">CATEGORÍA: {cat.toUpperCase()}</h3>
-                  <ul className="text-sm list-disc list-inside">
-                    {wordsInCat.map(w => <li key={w.word}>{w.word}</li>)}
-                  </ul>
+                  <h3 className="text-lg font-bold uppercase text-blue-600 mb-2 cursor-pointer flex items-center gap-2" onClick={() => toggleExpanded(cat)}>
+                    <span>{isExpanded ? '▼' : '▶'}</span> CATEGORÍA: {cat.toUpperCase()}
+                  </h3>
+                  {isExpanded && (
+                    <ul className="text-sm list-disc list-inside">
+                      {wordsInCat.map(w => <li key={w.word}>{w.word}</li>)}
+                    </ul>
+                  )}
                 </div>
               );
             })}
