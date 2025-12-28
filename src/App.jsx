@@ -40,15 +40,11 @@ export default function App() {
   // categories available (derived from WORD_BANK)
   const allCategories = useMemo(() => Array.from(new Set(WORD_BANK.map(w => w.category))).sort(), []);
   // counts per category (used in UI)
-  const filteredCategoryCounts = useMemo(() => {
-  const map = {};
-  WORD_BANK.forEach(w => {
-    if (lightMode && offensiveWords.includes(w.word)) return;
-    map[w.category] = (map[w.category] || 0) + 1;
-  });
-  return map;
-}, [lightMode]);
-
+  const categoryCounts = useMemo(() => {
+    const map = {};
+    WORD_BANK.forEach(w => { map[w.category] = (map[w.category] || 0) + 1; });
+    return map;
+  }, []);
   const [selectedCategories, setSelectedCategories] = useState(() => allCategories.slice());
 
   const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub"];
@@ -296,7 +292,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                      <span className="text-xs font-bold uppercase text-blue-600">{cat} <span className="text-xs text-slate-400">({filteredCategoryCounts[cat] || 0})</span></span>
+                      <span className="text-xs font-bold uppercase text-blue-600">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
