@@ -373,8 +373,8 @@ export default function App() {
                         )
                       ) : (
                         <div className="text-center">
-                          <div className="text-blue-600 text-lg">Pulsa para ver tu rol</div>
-                          <div className="mt-2 text-xs text-slate-500">(Se mostrará privadamente en esta pantalla)</div>
+                          <div className="bg-blue-500 text-white text-xl px-4 py-2 rounded">Pulsa para ver tu rol</div>
+                          <div className="mt-2 text-sm text-slate-500">(Se mostrará privadamente en esta pantalla)</div>
                         </div>
                       )}
                       </div>
