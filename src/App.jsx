@@ -242,7 +242,7 @@ export default function App() {
                 {randomImpostors && (
                   <label className="flex items-center justify-between gap-2 ml-4">
                     <span>Máximo impostores</span>
-                    <input type="number" min="2" max={players.length - 1} value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1 w-16" />
+                    <input type="number" min="2" max={players.length - 1} value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1 w-16" readonly />
                   </label>
                 )}
               </div>
@@ -263,7 +263,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                     <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
+                     <span className="text-sm font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({filteredCategoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
@@ -321,8 +321,8 @@ export default function App() {
            
             {/* big card modal-ish area */}
             {currentBigCard && (
-              <div className="fixed inset-0 flex items-end md:items-center justify-center p-4 pointer-events-none">
-                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4">
+              <div className="fixed inset-0 flex items-end md:items-center justify-center p-4 pointer-events-none" onClick={() => setCurrentBigCard(null)}>
+                <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4" onClick={e => e.stopPropagation()}>
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="text-lg font-bold">{players.find(p => p.id === currentBigCard)?.name}</div>
