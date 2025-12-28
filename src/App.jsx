@@ -423,7 +423,7 @@ export default function App() {
       </div>
 
       {mostrarModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setMostrarModal(false)}>
+        <div key={`modal-${lightMode}`} className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setMostrarModal(false)}>
           <div className="bg-white p-6 rounded-xl max-w-4xl max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Categorías y Palabras</h2>
