@@ -280,8 +280,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                      <span className="text-xs font-bold uppercase text-blue-600">{cat} <span className="text-xs text-slate-400">({filteredCategoryCounts[cat] || 0})</span></span>
-
+                      <span className="text-xs font-bold uppercase text-blue-600">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
