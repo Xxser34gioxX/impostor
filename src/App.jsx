@@ -45,15 +45,6 @@ export default function App() {
     WORD_BANK.forEach(w => { map[w.category] = (map[w.category] || 0) + 1; });
     return map;
   }, []);
-  const filteredCategoryCounts = useMemo(() => {
-    const map = {};
-    WORD_BANK.forEach(w => {
-      if (!lightMode || !offensiveWords.includes(w.word)) {
-        map[w.category] = (map[w.category] || 0) + 1;
-      }
-    });
-    return map;
-  }, [lightMode]);
   const [selectedCategories, setSelectedCategories] = useState(() => allCategories.slice());
 
   const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub"];
