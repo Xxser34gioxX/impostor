@@ -47,7 +47,10 @@ export default function App() {
   }, []);
   const [selectedCategories, setSelectedCategories] = useState(() => allCategories.slice());
 
-  // helpers to modify players
+  const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub"];
+
+  const [lightMode, setLightMode] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false);
   function updatePlayer(id, patch) {
     setPlayers(p => p.map(pl => (pl.id === id ? { ...pl, ...patch } : pl)));
   }
@@ -72,7 +75,7 @@ export default function App() {
   function startGame() {
     if (players.length < MIN_PLAYERS) return alert(`Necesitas al menos ${MIN_PLAYERS} jugadores`);
   // pick random word from selected categories
-  const wordPool = WORD_BANK.filter(w => selectedCategories.includes(w.category));
+  const wordPool = WORD_BANK.filter(w => selectedCategories.includes(w.category) && (!lightMode || !offensiveWords.includes(w.word)));
   setGameStartedMessage(true);
   if (wordPool.length === 0) return alert('No hay palabras en las categorías seleccionadas. Selecciona al menos una categoría.');
   const pick = wordPool[randInt(wordPool.length)];
@@ -175,7 +178,10 @@ export default function App() {
         </div>
       )}
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-4">
-        <h1 className="text-2xl font-bold text-center mb-3">Juego del impostor — réplica móvil</h1>
+        <div className="flex justify-between items-center mb-3">
+          <h1 className="text-2xl font-bold">Juego del impostor — réplica móvil</h1>
+          <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
+        </div>
 
         {!started && (
           <div>
@@ -218,17 +224,19 @@ export default function App() {
                   <input type="checkbox" checked={showClassForAll} onChange={e => setShowClassForAll(e.target.checked)} />
                 </label>
 
-                <label className="flex items-center justify-between gap-2">
-                  <span>Número de impostores</span>
-                  <select value={numImpostors} onChange={e => setNumImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1">
-                    {Array.from({ length: Math.max(1, players.length - 1) }, (_, i) => i + 1).map(n => (
-                      <option key={n} value={n}>{n}</option>
-                    ))}
-                  </select>
-                </label>
+                {!randomImpostors && (
+                  <label className="flex items-center justify-between gap-2">
+                    <span>Número de impostores</span>
+                    <select value={numImpostors} onChange={e => setNumImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1">
+                      {Array.from({ length: Math.max(1, players.length - 1) }, (_, i) => i + 1).map(n => (
+                        <option key={n} value={n}>{n}</option>
+                      ))}
+                    </select>
+                  </label>
+                )}
 
                 <label className="flex items-center justify-between gap-2">
-                  <span>Número de impostores aleatorio</span>
+                  <span>¿Impostores aleatorios?</span>
                   <input type="checkbox" checked={randomImpostors} onChange={e => setRandomImpostors(e.target.checked)} />
                 </label>
                 {randomImpostors && (
@@ -241,7 +249,11 @@ export default function App() {
             </section>
 
             <section className="mb-4">
-              <h2 className="font-semibold">Categorías (elige las que entran en la partida)</h2>
+              <h2 className="text-sm uppercase text-blue-600">Categorías (elige las que entran en la partida)</h2>
+              <label className="flex items-center justify-between gap-2 mb-2">
+                <span>Modo Light (sin palabras ofensivas)</span>
+                <input type="checkbox" checked={lightMode} onChange={e => setLightMode(e.target.checked)} />
+              </label>
               <div className="mt-2 border rounded-lg p-2 max-h-44 overflow-auto">
                 <div className="flex gap-2 mb-2">
                   <button className="px-2 py-1 bg-slate-200 rounded" onClick={selectAllCategories}>Seleccionar todo</button>
@@ -294,7 +306,7 @@ export default function App() {
                   {players.map(pl => (
                     <div key={pl.id} className="flex flex-col items-center gap-1">
                       <button
-                        className={`w-16 h-16 rounded-lg shadow-sm flex items-center justify-center transition-all duration-150 ${pl.clicked ? 'bg-slate-100 scale-95' : 'bg-white hover:scale-105'}`}
+                        className={`w-16 h-16 rounded-lg shadow-sm flex items-center justify-center transition-all duration-150 ${pl.clicked ? 'bg-green-800 scale-95' : 'bg-green-200 hover:scale-105'}`}
                         onClick={() => setCurrentBigCard(pl.id)}
                       >
                         {/* empty square (revealed state indicated by bg) */}
@@ -322,7 +334,7 @@ export default function App() {
                   </div>
                   <hr className="my-2" />
                   <div className="mt-3">
-                    <div className="text-sm">Categoría: <span className="font-semibold">{showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}</span></div>
+                    <div className="text-xl font-bold">Categoría: <span className="text-blue-600 font-bold text-2xl">{showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}</span></div>
 
                     {/* big card area: click on the card to reveal (or use button) */}
                     <div className="mt-3">
@@ -388,6 +400,28 @@ export default function App() {
 
         <footer className="mt-4 text-xs text-slate-500 text-center">Diseñado para móvil. Responsive y sencillo. Puedes convertirlo en PWA o envolverlo en WebView.</footer>
       </div>
+
+      {mostrarModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white p-6 rounded-xl max-w-4xl max-h-[80vh] overflow-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Categorías y Palabras</h2>
+              <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => setMostrarModal(false)}>Cerrar</button>
+            </div>
+            {allCategories.map(cat => {
+              const wordsInCat = WORD_BANK.filter(w => w.category === cat && (!lightMode || !offensiveWords.includes(w.word)));
+              return (
+                <div key={cat} className="mb-6">
+                  <h3 className="text-lg font-bold uppercase text-blue-600 mb-2">CATEGORÍA: {cat.toUpperCase()}</h3>
+                  <ul className="text-sm list-disc list-inside">
+                    {wordsInCat.map(w => <li key={w.word}>{w.word}</li>)}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
