@@ -259,11 +259,19 @@ export default function App() {
                 {randomImpostors && (
                   <label className="flex items-center justify-between gap-2 ml-4">
                     <span>Máximo impostores</span>
-                    <select value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1">
-                      {Array.from({ length: Math.max(1, players.length - 2) }, (_, i) => i + 2).map(n => (
-                        <option key={n} value={n}>{n}</option>
-                      ))}
-                    </select>
+                    <select
+                    value={maxImpostors}
+                    onChange={e => setMaxImpostors(Number(e.target.value))}
+                    className="bg-slate-50 rounded px-2 py-1"
+                  >
+                    {Array.from(
+                      { length: Math.max(1, players.length - 2) },
+                      (_, i) => i + 2
+                    ).map(n => (
+                      <option key={n} value={n}>{n}</option>
+                    ))}
+                  </select>
+
                   </label>
                 )}
               </div>
