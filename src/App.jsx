@@ -263,7 +263,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                      <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({filteredCategoryCounts[cat] || 0})</span></span>
+                     <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
@@ -372,8 +372,7 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={newGameKeepPlayers}>Siguiente partida</button>
-              <button className="flex-1 rounded px-3 py-2 bg-blue-500 text-white" onClick={endToMenu}>Salir al inicio</button>
+              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { if (!allRevealed()) return alert('Todos deben ver su rol antes de ver resultados'); showResults(); }}>Ver resultados</button>
             </div>
             </div>
 
