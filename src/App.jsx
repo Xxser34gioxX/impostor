@@ -346,7 +346,7 @@ export default function App() {
                       <div className="text-xs text-slate-500">{players.find(p => p.id === currentBigCard)?.name}</div>
                     </div>
                     <div>
-                      <button className="px-3 py-1 rounded bg-slate-200" onClick={() => setCurrentBigCard(null)}>Cerrar</button>
+                      <button className="px-3 py-1 rounded bg-red-500 text-white" onClick={() => setCurrentBigCard(null)}>Cerrar</button>
                     </div>
                   </div>
                   <hr className="my-2" />
@@ -373,7 +373,7 @@ export default function App() {
                         )
                       ) : (
                         <div className="text-center">
-                          <div className="text-slate-600 text-sm">Pulsa para ver tu rol</div>
+                          <div className="text-blue-600 text-lg">Pulsa para ver tu rol</div>
                           <div className="mt-2 text-xs text-slate-500">(Se mostrará privadamente en esta pantalla)</div>
                         </div>
                       )}
