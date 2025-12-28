@@ -22,6 +22,8 @@ export default function App() {
 
   const [showClassForAll, setShowClassForAll] = useState(true);
   const [numImpostors, setNumImpostors] = useState(1);
+  const [randomImpostors, setRandomImpostors] = useState(false);
+  const [maxImpostors, setMaxImpostors] = useState(2);
   const [selectedWord, setSelectedWord] = useState(null);
   const [impostorIds, setImpostorIds] = useState([]);
   const [starting, setStarting] = useState(false); // show a short animation when starting
@@ -77,10 +79,14 @@ export default function App() {
     setSelectedWord(pick);
     // choose impostors
     const ids = players.map(p => p.id);
+    let numToChoose = numImpostors;
+    if (randomImpostors) {
+      numToChoose = randInt(maxImpostors) + 1;
+    }
     const chosen = [];
     // shuffle copy
     const idPool = [...ids];
-    while (chosen.length < numImpostors) {
+    while (chosen.length < numToChoose) {
       const idx = randInt(idPool.length);
       chosen.push(idPool[idx]);
       idPool.splice(idx, 1);
@@ -220,6 +226,17 @@ export default function App() {
                     ))}
                   </select>
                 </label>
+
+                <label className="flex items-center justify-between gap-2">
+                  <span>Número de impostores aleatorio</span>
+                  <input type="checkbox" checked={randomImpostors} onChange={e => setRandomImpostors(e.target.checked)} />
+                </label>
+                {randomImpostors && (
+                  <label className="flex items-center justify-between gap-2 ml-4">
+                    <span>Máximo impostores</span>
+                    <input type="number" min="1" max={players.length - 1} value={maxImpostors} onChange={e => setMaxImpostors(Number(e.target.value))} className="bg-slate-50 rounded px-2 py-1 w-16" />
+                  </label>
+                )}
               </div>
             </section>
 
@@ -234,7 +251,7 @@ export default function App() {
                   {allCategories.map(cat => (
                     <label key={cat} className="flex items-center gap-2">
                       <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={()=>toggleCategory(cat)} />
-                      <span className="text-sm truncate">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
+                      <span className="text-lg font-bold uppercase text-blue-600 truncate">{cat} <span className="text-xs text-slate-400">({categoryCounts[cat] || 0})</span></span>
                     </label>
                   ))}
                 </div>
@@ -255,8 +272,19 @@ export default function App() {
           <div>
             <div className="mb-3">
               <div className="text-sm">Jugadores: {players.length}</div>
-              {revealImpostors && <div className="text-sm text-red-600 font-semibold mt-1">Impostores: {numImpostors}</div>}
-              {revealStarter && <div className="text-sm text-green-600 font-semibold mt-1">Empieza: Jugador {firstPlayerId}</div>}
+              {revealImpostors && (
+                <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded">
+                  <div className="font-semibold text-red-700">Información de Impostores</div>
+                  <div>Número de impostores: {numImpostors}</div>
+                  <div>Impostores:</div>
+                  <ul className="list-disc list-inside">
+                    {impostorIds.map(id => <li key={id}>{players.find(p => p.id === id)?.name}</li>)}
+                  </ul>
+                  <div>Categoría: {selectedWord?.category}</div>
+                  <div>Palabra: {selectedWord?.word}</div>
+                </div>
+              )}
+              {revealStarter && <div className="text-sm text-green-600 font-semibold mt-1">Empieza: {players.find(p => p.id === firstPlayerId)?.name}</div>}
               <div className="text-xs text-slate-500">(Pulsa tu casilla para ver tu rol en privado)</div>
             </div>
 
@@ -286,7 +314,7 @@ export default function App() {
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="text-lg font-bold">{players.find(p => p.id === currentBigCard)?.name}</div>
-                      <div className="text-xs text-slate-500">Jugador {currentBigCard}</div>
+                      <div className="text-xs text-slate-500">{players.find(p => p.id === currentBigCard)?.name}</div>
                     </div>
                     <div>
                       <button className="px-3 py-1 rounded bg-slate-200" onClick={() => setCurrentBigCard(null)}>Cerrar</button>
