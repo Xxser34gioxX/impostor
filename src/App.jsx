@@ -338,7 +338,7 @@ export default function App() {
            
             {/* big card modal-ish area */}
             {currentBigCard && (
-              <div className="fixed inset-0 flex items-end md:items-center justify-center p-4 pointer-events-none" onClick={() => setCurrentBigCard(null)}>
+              <div className="fixed inset-0 flex items-end md:items-center justify-center p-4" onClick={() => setCurrentBigCard(null)}>
                 <div className="w-full max-w-md pointer-events-auto bg-white rounded-2xl shadow-2xl p-4" onClick={e => e.stopPropagation()}>
                   <div className="flex justify-between items-center">
                     <div>
@@ -389,7 +389,7 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={newGameKeepPlayers}>Siguiente partida</button>
+              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
             </div>
             </div>
 
