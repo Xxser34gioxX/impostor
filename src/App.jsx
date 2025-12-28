@@ -11,6 +11,12 @@ function randInt(max) {
 }
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [showAuth, setShowAuth] = useState(true); // show login/register
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+  const [authUsername, setAuthUsername] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
   const [players, setPlayers] = useState(() =>
     Array.from({ length: DEFAULT_PLAYERS }).map((_, i) => ({
       id: i + 1,
@@ -52,6 +58,7 @@ export default function App() {
   const [lightMode, setLightMode] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState(new Set(allCategories));
+  const [mostrarHistorial, setMostrarHistorial] = useState(false);
   function updatePlayer(id, patch) {
     setPlayers(p => p.map(pl => (pl.id === id ? { ...pl, ...patch } : pl)));
   }
@@ -180,10 +187,100 @@ export default function App() {
     });
   }
 
+  // Auth functions
+  function register() {
+    if (!authUsername || !authPassword) return alert('Completa todos los campos');
+    const users = JSON.parse(localStorage.getItem('impostorUsers') || '{}');
+    if (users[authUsername]) return alert('Usuario ya existe');
+    users[authUsername] = { password: authPassword, options: { players: players, selectedCategories: selectedCategories, lightMode: lightMode }, games: [] };
+    localStorage.setItem('impostorUsers', JSON.stringify(users));
+    setCurrentUser(authUsername);
+    setIsLoggedIn(true);
+    setShowAuth(false);
+    loadUserData(authUsername);
+  }
+
+  function login() {
+    if (!authUsername || !authPassword) return alert('Completa todos los campos');
+    const users = JSON.parse(localStorage.getItem('impostorUsers') || '{}');
+    if (!users[authUsername] || users[authUsername].password !== authPassword) return alert('Usuario o contraseña incorrectos');
+    setCurrentUser(authUsername);
+    setIsLoggedIn(true);
+    setShowAuth(false);
+    loadUserData(authUsername);
+  }
+
+  function logout() {
+    saveUserData();
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    setShowAuth(true);
+  }
+
+  function loadUserData(username) {
+    const users = JSON.parse(localStorage.getItem('impostorUsers') || '{}');
+    const userData = users[username];
+    if (userData) {
+      setPlayers(userData.options.players || players);
+      setSelectedCategories(userData.options.selectedCategories || selectedCategories);
+      setLightMode(userData.options.lightMode || false);
+    }
+  }
+
+  function saveUserData() {
+    if (!currentUser) return;
+    const users = JSON.parse(localStorage.getItem('impostorUsers') || '{}');
+    if (users[currentUser]) {
+      users[currentUser].options = { players, selectedCategories, lightMode };
+      localStorage.setItem('impostorUsers', JSON.stringify(users));
+    }
+  }
+
+  function saveGame(gameData) {
+    if (!currentUser) return;
+    const users = JSON.parse(localStorage.getItem('impostorUsers') || '{}');
+    if (users[currentUser]) {
+      users[currentUser].games.push(gameData);
+      localStorage.setItem('impostorUsers', JSON.stringify(users));
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4">
-      {starting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      {showAuth ? (
+        <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-6 mt-10">
+          <h1 className="text-2xl font-bold text-center mb-4">Juego del Impostor</h1>
+          <div className="flex justify-center gap-4 mb-4">
+            <button className={`px-4 py-2 rounded ${authMode === 'login' ? 'bg-blue-500 text-white' : 'bg-slate-200'}`} onClick={() => setAuthMode('login')}>Iniciar Sesión</button>
+            <button className={`px-4 py-2 rounded ${authMode === 'register' ? 'bg-blue-500 text-white' : 'bg-slate-200'}`} onClick={() => setAuthMode('register')}>Registrarse</button>
+          </div>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={authUsername}
+              onChange={e => setAuthUsername(e.target.value)}
+              className="w-full bg-slate-50 rounded px-3 py-2"
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={authPassword}
+              onChange={e => setAuthPassword(e.target.value)}
+              className="w-full bg-slate-50 rounded px-3 py-2"
+            />
+            <button
+              className="w-full bg-green-500 text-white py-2 rounded"
+              onClick={authMode === 'login' ? login : register}
+            >
+              {authMode === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          {starting && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white p-6 rounded-xl flex flex-col items-center gap-3 shadow-xl">
             <div className="w-14 h-14 border-4 border-t-red-600 border-slate-200 rounded-full animate-spin" />
             <div className="font-semibold">Iniciando partida…</div>
@@ -194,7 +291,10 @@ export default function App() {
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-2xl font-bold">Juego del impostor — réplica móvil</h1>
           {started ? (
-            <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={endToMenu}>Ir al menú</button>
+            <div className="flex gap-2">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={endToMenu}>Ir al menú</button>
+              <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={logout}>Logout</button>
+            </div>
           ) : (
             <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
           )}
@@ -240,6 +340,8 @@ export default function App() {
                   <span>Mostrar categoría/clase a todos</span>
                   <input type="checkbox" checked={showClassForAll} onChange={e => setShowClassForAll(e.target.checked)} />
                 </label>
+
+                <button className="bg-purple-500 text-white px-4 py-2 rounded" onClick={() => setMostrarHistorial(true)}>Ver Historial</button>
 
                 {!randomImpostors && (
                   <label className="flex items-center justify-between gap-2">
@@ -389,7 +491,7 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
+              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { saveGame({ word: selectedWord?.word, category: selectedWord?.category, impostors: impostorIds, players: players.map(p => p.name), date: new Date().toISOString() }); newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
             </div>
             </div>
 
@@ -447,6 +549,29 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
+
+      {mostrarHistorial && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setMostrarHistorial(false)}>
+          <div className="bg-white p-6 rounded-xl max-w-4xl max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Historial de Partidas</h2>
+              <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => setMostrarHistorial(false)}>Cerrar</button>
+            </div>
+            {currentUser && (
+              <div>
+                {JSON.parse(localStorage.getItem('impostorUsers') || '{}')[currentUser]?.games?.map((game, idx) => (
+                  <div key={idx} className="mb-4 border rounded p-3">
+                    <div>Fecha: {new Date(game.date).toLocaleString()}</div>
+                    <div>Palabra: {game.word}</div>
+                    <div>Categoría: {game.category}</div>
+                    <div>Impostores: {game.impostors.map(id => game.players[id-1]).join(', ')}</div>
+                  </div>
+                )) || <div>No hay partidas guardadas.</div>}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
