@@ -193,7 +193,11 @@ export default function App() {
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-4">
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-2xl font-bold">Juego del impostor — réplica móvil</h1>
-          <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
+          {started ? (
+            <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={endToMenu}>Ir al menú</button>
+          ) : (
+            <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
+          )}
         </div>
 
         {!started && (
@@ -385,7 +389,7 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { if (!allRevealed()) return alert('Todos deben ver su rol antes de ver resultados'); showResults(); }}>Ver resultados</button>
+              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={newGameKeepPlayers}>Siguiente partida</button>
             </div>
             </div>
 
@@ -426,8 +430,11 @@ export default function App() {
               const wordsInCat = WORD_BANK.filter(w => w.category === cat && (!lightMode || !offensiveWords.includes(w.word)));
               return (
                 <div key={cat} className="mb-6">
-                  <h3 className="text-lg font-bold uppercase text-blue-600 mb-2 cursor-pointer flex items-center gap-2" onClick={() => toggleExpanded(cat)}>
-                    <span>{isExpanded ? '▼' : '▶'}</span> CATEGORÍA: {cat.toUpperCase()}
+                  <h3 className="text-lg font-bold uppercase text-blue-600 mb-2 cursor-pointer flex items-center gap-2 justify-between" onClick={() => toggleExpanded(cat)}>
+                    <span className="flex items-center gap-2">
+                      <span>{isExpanded ? '▼' : '▶'}</span> CATEGORÍA: {cat.toUpperCase()}
+                    </span>
+                    <span className="text-sm text-slate-500">({wordsInCat.length})</span>
                   </h3>
                   {isExpanded && (
                     <ul className="text-sm list-disc list-inside">
