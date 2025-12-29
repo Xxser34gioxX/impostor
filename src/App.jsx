@@ -23,6 +23,7 @@ export default function App() {
     }))
   );
 
+  const [startingPlayer, setStartingPlayer] = useState(null);
   const [showClassForAll, setShowClassForAll] = useState(true);
   const [numImpostors, setNumImpostors] = useState(1);
   const [randomImpostors, setRandomImpostors] = useState(false);
@@ -120,7 +121,10 @@ export default function App() {
     setRevealImpostors(false);
     setRevealStarter(false);
     setResultsShown(false);
-    setFirstPlayerId(ids[randInt(ids.length)]);
+    const starterId = ids[randInt(ids.length)];
+    const starter = players.find(p => p.id === starterId);
+    setStartingPlayer(starter.name);
+
   }
 
   /* {gameStartedMessage && (
@@ -170,14 +174,18 @@ export default function App() {
       const newEliminated = [...prev, id];
       const activeCount = players.length - newEliminated.length;
       const newRemaining = remainingImpostors - (impostorIds.includes(id) ? 1 : 0);
-      if (activeCount === newRemaining) setImpostorVictoryDialog(true);
+      if (activeCount === newRemaining){
+        endGame("impostors");
+      }  
       return newEliminated;
     });
     if (impostorIds.includes(id)) {
       setEliminatedImpostors(prev => [...prev, id]);
       setRemainingImpostors(prev => {
         const newRemaining = prev - 1;
-        if (newRemaining === 0) setVictoryDialog(true);
+        if (newRemaining === 0){
+          endGame("players");
+        } 
         return newRemaining;
       });
     }
@@ -189,6 +197,47 @@ export default function App() {
 
   function showResults() {
     setResultsShown(true);
+  }
+
+  function applyPoints(winnerType) {
+    setPlayers(prevPlayers =>
+      prevPlayers.map(p => {
+        if (winnerType === "players") {
+          const isNotImpostor = !impostorIds.includes(p.id);
+          const gain = isNotImpostor ? 200 : 0;
+
+          return {
+            ...p,
+            points: p.points + gain,
+            lastGain: gain
+          };
+        }
+
+        if (winnerType === "impostors") {
+          const isImpostor = impostorIds.includes(p.id);
+          const gain = isImpostor ? 500 : 0;
+
+          return {
+            ...p,
+            points: p.points + gain,
+            lastGain: gain
+          };
+        }
+        return p;
+      })
+    );
+  }
+
+  const endGame = (winner) => {
+    if (winner === "players") {
+      applyPoints("players")
+      setVictoryDialog(true)
+    }
+
+    if (winner === "impostors") {
+      applyPoints("impostors")
+      setImpostorVictoryDialog(true)
+    }
   }
 
   function newGameKeepPlayers() {
@@ -400,13 +449,11 @@ export default function App() {
               {revealStarter && (
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
                   <div className="font-semibold text-black">Impostores restantes: {remainingImpostors}</div>
+                  {startingPlayer && (<div className="font-semibold text-green-600"> Empieza: {startingPlayer}</div>
+                  )}
                   <div className="font-semibold text-red-600">Elimina los impostores:</div>
                   {(() => {
                     const activePlayers = players.filter(p => !eliminatedPlayers.includes(p.id));
-                    if (activePlayers.length === remainingImpostors) {
-                      setImpostorVictoryDialog(true);
-                      return <div className="text-red-600 font-bold text-lg mt-2">¡Los impostores ganan la partida!</div>;
-                    }
                     return (
                       <ul className="list-disc list-inside mt-2">
                         {activePlayers.map(p => (
@@ -527,26 +574,109 @@ export default function App() {
       </div>
 
       {victoryDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setVictoryDialog(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white p-6 rounded-xl max-w-md" onClick={e => e.stopPropagation()}>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-green-600 mb-4">¡Felicidades!</h2>
               <p className="mb-6">Eliminasteis a todos los impostores.</p>
-              <div className="flex gap-4 justify-center">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => { setVictoryDialog(false); endToMenu(); }}>Ir al menú</button>
-                <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => { setVictoryDialog(false); newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
+
+              {/* LISTA DE JUGADORES + PUNTOS */}
+              <div
+                style={{
+                  maxHeight: "200px",
+                  overflowY: "auto",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  padding: "10px",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  background: "#f8f8f8"
+                }}
+              >
+                {players.map(p => {
+                  
+                  return (
+                    <div
+                      key={p.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "6px 0",
+                        borderBottom: "1px solid #e5e5e5"
+                      }}
+                    >
+                      <span>{p.name}</span>
+                      <span>
+                        {p.points - p.lastGain} + {p.lastGain} = <b>{p.points}</b>
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
+
+              {/* BOTONES */}
+              <div className="flex gap-4 justify-center">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={() => { setVictoryDialog(false); endToMenu(); }}
+                >
+                  Ir al menú
+                </button>
+
+                <button
+                  className="bg-green-500 text-white px-4 py-2 rounded"
+                  onClick={() => { setVictoryDialog(false); newGameKeepPlayers(); startWithAnimation(); }}
+                >
+                  Siguiente partida
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
       )}
 
+
       {impostorVictoryDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" >
           <div className="bg-white p-6 rounded-xl max-w-md" onClick={e => e.stopPropagation()}>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-red-600 mb-4">¡Los impostores ganan!</h2>
               <p className="mb-6">Los impostores han sobrevivido y ganado la partida.</p>
+
+              {/* LISTA DE JUGADORES + PUNTOS */}
+              <div style={{
+                  maxHeight: "200px",
+                  overflowY: "auto",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  padding: "10px",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  background: "#f8f8f8"
+                }}
+              >
+                {players.map(p => {
+
+                  return (
+                    <div
+                      key={p.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "6px 0",
+                        borderBottom: "1px solid #e5e5e5"
+                      }}
+                    >
+                      <span>{p.name}</span>
+                      <span>
+                        {p.points - p.lastGain} + {p.lastGain} = <b>{p.points}</b>
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
               <div className="flex gap-4 justify-center">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => { setImpostorVictoryDialog(false); endToMenu(); }}>Ir al menú</button>
                 <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => { setImpostorVictoryDialog(false); newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
@@ -555,6 +685,7 @@ export default function App() {
           </div>
         </div>
       )}
+
 
       {mostrarModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setMostrarModal(false)}>
@@ -588,3 +719,4 @@ export default function App() {
     </div>
   );
 }
+    
