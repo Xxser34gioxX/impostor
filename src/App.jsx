@@ -16,7 +16,10 @@ export default function App() {
       id: i + 1,
       name: `Jugador ${i + 1}`,
       clicked: false,
-      roleRevealed: null // null | 'impostor' | 'word'
+      roleRevealed: null, // null | 'impostor' | 'word'
+      alive: true,
+      points: 0,
+      lastGain: 0
     }))
   );
 
@@ -36,6 +39,9 @@ export default function App() {
   const [firstPlayerId, setFirstPlayerId] = useState(null);
   const [resultsShown, setResultsShown] = useState(false);
   const [victoryDialog, setVictoryDialog] = useState(false);
+  const [impostorVictoryDialog, setImpostorVictoryDialog] = useState(false);
+  const [eliminatedPlayers, setEliminatedPlayers] = useState([]);
+  const [eliminatedImpostors, setEliminatedImpostors] = useState([]);
 
   const [gameStartedMessage, setGameStartedMessage] = useState(false);
   const [flipped, setFlipped] = useState(false);
@@ -102,6 +108,10 @@ export default function App() {
     setRemainingImpostors(numToChoose);
     // reset players clicked and roleRevealed
     setPlayers(p => p.map(pl => ({ ...pl, clicked: false, roleRevealed: null })));
+    setEliminatedPlayers([]);
+    setEliminatedImpostors([]);
+    setVictoryDialog(false);
+    setImpostorVictoryDialog(false);
     setStarted(true);
     setRevealImpostors(false);
     setRevealStarter(false);
@@ -136,6 +146,9 @@ export default function App() {
     setImpostorIds([]);
     setRemainingImpostors(0);
     setVictoryDialog(false);
+    setImpostorVictoryDialog(false);
+    setEliminatedPlayers([]);
+    setEliminatedImpostors([]);
     setCurrentBigCard(null);
     setResultsShown(false);
     setRevealImpostors(false);
@@ -146,6 +159,24 @@ export default function App() {
     const isImpostor = impostorIds.includes(id);
     updatePlayer(id, { clicked: true, roleRevealed: isImpostor ? 'impostor' : 'word' });
     if (isImpostor) setRemainingImpostors(prev => prev - 1);
+  }
+
+  function eliminatePlayer(id) {
+    setEliminatedPlayers(prev => {
+      const newEliminated = [...prev, id];
+      const activeCount = players.length - newEliminated.length;
+      const newRemaining = remainingImpostors - (impostorIds.includes(id) ? 1 : 0);
+      if (activeCount === newRemaining) setImpostorVictoryDialog(true);
+      return newEliminated;
+    });
+    if (impostorIds.includes(id)) {
+      setEliminatedImpostors(prev => [...prev, id]);
+      setRemainingImpostors(prev => {
+        const newRemaining = prev - 1;
+        if (newRemaining === 0) setVictoryDialog(true);
+        return newRemaining;
+      });
+    }
   }
 
   function allRevealed() {
@@ -162,6 +193,9 @@ export default function App() {
     setImpostorIds([]);
     setRemainingImpostors(0);
     setVictoryDialog(false);
+    setImpostorVictoryDialog(false);
+    setEliminatedPlayers([]);
+    setEliminatedImpostors([]);
     setStarted(false);
     setCurrentBigCard(null);
     setResultsShown(false);
@@ -346,25 +380,11 @@ export default function App() {
                   <div className="font-semibold text-red-700">Información de Impostores</div>
                   <div className="flex justify-between items-center mb-2">
                     <div className="font-semibold text-black">Impostores restantes: {remainingImpostors}</div>
-                    <div className="font-semibold text-black">Elimina los impostores:</div>
                   </div>
                   <ul className="list-disc list-inside">
                     {impostorIds.map(id => (
-                      <li key={id} className="flex items-center justify-between">
+                      <li key={id} className={`flex items-center justify-between ${eliminatedImpostors.includes(id) ? 'text-red-600 line-through' : ''}`}>
                         <span>{players.find(p => p.id === id)?.name}</span>
-                        <button
-                          className="bg-red-500 text-white px-2 py-1 rounded text-xs"
-                          onClick={() => {
-                            setImpostorIds(prev => prev.filter(i => i !== id));
-                            setRemainingImpostors(prev => {
-                              const newRemaining = prev - 1;
-                              if (newRemaining === 0) setVictoryDialog(true);
-                              return newRemaining;
-                            });
-                          }}
-                        >
-                          Jugador encontrado
-                        </button>
                       </li>
                     ))}
                   </ul>
@@ -373,7 +393,34 @@ export default function App() {
                   <div><span className="text-yellow-600">Palabra:</span> {selectedWord?.word}</div>
                 </div>
               )}
-              {revealStarter && <div className="text-sm text-green-600 font-semibold mt-1">Empieza: {players.find(p => p.id === firstPlayerId)?.name}</div>}
+              {revealStarter && (
+                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
+                  <div className="font-semibold text-black">Impostores restantes: {remainingImpostors}</div>
+                  <div className="font-semibold text-red-600">Elimina los impostores:</div>
+                  {(() => {
+                    const activePlayers = players.filter(p => !eliminatedPlayers.includes(p.id));
+                    if (activePlayers.length === remainingImpostors) {
+                      setImpostorVictoryDialog(true);
+                      return <div className="text-red-600 font-bold text-lg mt-2">¡Los impostores ganan la partida!</div>;
+                    }
+                    return (
+                      <ul className="list-disc list-inside mt-2">
+                        {activePlayers.map(p => (
+                          <li key={p.id} className="flex items-center justify-between">
+                            <span className="text-blue-600">{p.name}</span>
+                            <button
+                              className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                              onClick={() => eliminatePlayer(p.id)}
+                            >
+                              Eliminar a jugador
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  })()}
+                </div>
+              )}
               <div className="text-xs text-slate-500">(Pulsa tu casilla para ver tu rol en privado)</div>
             </div>
 
@@ -445,7 +492,7 @@ export default function App() {
             )}
 
             <div className="mt-3 flex gap-2">
-              <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(true)}>Revelar impostores</button>
+              <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(prev => !prev)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
               <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
             </div>
@@ -484,6 +531,21 @@ export default function App() {
               <div className="flex gap-4 justify-center">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => { setVictoryDialog(false); endToMenu(); }}>Ir al menú</button>
                 <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => { setVictoryDialog(false); newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {impostorVictoryDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white p-6 rounded-xl max-w-md" onClick={e => e.stopPropagation()}>
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-red-600 mb-4">¡Los impostores ganan!</h2>
+              <p className="mb-6">Los impostores han sobrevivido y ganado la partida.</p>
+              <div className="flex gap-4 justify-center">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => { setImpostorVictoryDialog(false); endToMenu(); }}>Ir al menú</button>
+                <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => { setImpostorVictoryDialog(false); newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
               </div>
             </div>
           </div>
