@@ -56,7 +56,11 @@ export default function App() {
   }, []);
   const [selectedCategories, setSelectedCategories] = useState(() => allCategories.slice());
 
-  const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub"];
+  const offensiveWords = ["Pervertido", "Inutil", "Adicto", "Borracho", "Mamado", "Esther", "Populista", "Comunista", 
+    "Demócrata", "Dictador", "El Caudillo", "Franco", "Lesviana", "Maricon", "Transexual", "Travesti", "Pene", "Vagina", 
+    "After", "Relacion rota", "PP", "PSOE", "VOX", "Pajearse", "Vaper", "Cigarros", "Porro", "Preservativo", "Puticlub", 
+    "Póker", "Ruleta", "Blackjack", "Tragaperras", "Durex", "Pornhub", "Follar"
+  ];
 
   const [lightMode, setLightMode] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
