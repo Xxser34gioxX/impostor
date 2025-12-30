@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import WORD_BANK from './file/words.json';
+import imagenMontania from './img/ImagenMontania.jpg';
+
 
 const DEFAULT_PLAYERS = 4;
 const MIN_PLAYERS = 3;
@@ -22,7 +24,8 @@ export default function App() {
       lastGain: 0
     }))
   );
-
+  
+  const [lift, setLift] = useState(0); // 0 = tapado, 100 = totalmente levantado
   const [startingPlayer, setStartingPlayer] = useState(null);
   const [showClassForAll, setShowClassForAll] = useState(true);
   const [numImpostors, setNumImpostors] = useState(1);
@@ -164,32 +167,47 @@ export default function App() {
   }
 
   function revealForPlayer(id) {
-    const isImpostor = impostorIds.includes(id);
-    updatePlayer(id, { clicked: true, roleRevealed: isImpostor ? 'impostor' : 'word' });
-    if (isImpostor) setRemainingImpostors(prev => prev - 1);
+  const isImpostor = impostorIds.includes(id);
+  updatePlayer(id, {
+    clicked: true,
+    roleRevealed: isImpostor ? 'impostor' : 'word'
+  });
+  setLift(0); // reiniciamos la animación
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += 4; // velocidad de levantamiento
+    setLift(progress);
+    if (progress >= 100) clearInterval(interval);
+  }, 16); // ~60fps
+}
+  
+  function closeBigCard() {
+    setCurrentBigCard(null);
+    setLift(0);
   }
 
   function eliminatePlayer(id) {
-    setEliminatedPlayers(prev => {
-      const newEliminated = [...prev, id];
-      const activeCount = players.length - newEliminated.length;
-      const newRemaining = remainingImpostors - (impostorIds.includes(id) ? 1 : 0);
-      if (activeCount === newRemaining){
-        endGame("impostors");
-      }  
-      return newEliminated;
+  setEliminatedPlayers(prev => [...prev, id]);
+
+  if (impostorIds.includes(id)) {
+    setRemainingImpostors(prev => {
+      const newRemaining = prev - 1;
+
+      if (newRemaining === 0) {
+        endGame("players"); // ganan jugadores
+      }
+
+      return newRemaining;
     });
-    if (impostorIds.includes(id)) {
-      setEliminatedImpostors(prev => [...prev, id]);
-      setRemainingImpostors(prev => {
-        const newRemaining = prev - 1;
-        if (newRemaining === 0){
-          endGame("players");
-        } 
-        return newRemaining;
-      });
+  } else {
+    const activePlayers =
+      players.length - (eliminatedPlayers.length + 1);
+
+    if (activePlayers === remainingImpostors) {
+      endGame("impostors"); // ganan impostores
     }
   }
+}
 
   function allRevealed() {
     return players.every(p => p.clicked);
@@ -277,7 +295,17 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-4">
+    
+    <div className="min-h-screen w-full"
+    style={{
+    backgroundImage: `url(${imagenMontania})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+    
+  }}
+>
+
       {starting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white p-6 rounded-xl flex flex-col items-center gap-3 shadow-xl">
@@ -286,33 +314,46 @@ export default function App() {
           </div>
         </div>
       )}
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-4">
+      <div className="transparent-bg min-h-screen p-4 max-w-2xl mx-auto bg-white/50 border border-white/30 rounded-2xl shadow-2xl p-4">
+      
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-2xl font-bold">Juego del impostor</h1>
           {started ? (
             <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={endToMenu}>Ir al menú</button>
           ) : (
-            <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
+            <button className="bg-green-600 hover:bg-green-700 transition text-white px-4 py-2 rounded-lg shadow" onClick={() => setMostrarModal(true)}>Ver Categorías</button>
           )}
         </div>
 
         {!started && (
           <div>
             <section className="mb-4">
-              <h2 className="font-semibold">Jugadores</h2>
+              <div className="flex justify-between font-bold text-lg mb-2 px-2"> <span className="text-blue-500 w-1/3">Jugadores</span> 
+              <span className="w-1/3 text-right text-amber-500">Puntos</span> <span className="text-green-500 w-1/3 text-right">Acciones</span> </div>
               <div className="mt-2 border rounded-lg p-2 max-h-64 overflow-auto">
                 {players.map((pl, idx) => (
                   <div key={pl.id} className="flex items-center gap-2 py-2">
+                    {/*Nombre del jugador*/}
                     <div className="flex-1">
+                      <div className="text-xs text-slate-500">ID: {pl.id}</div>
                       <input
-                        className="w-full bg-slate-50 rounded px-2 py-1"
+                        className="w-full bg-blue-200 rounded px-2 py-1 font-semibold"
                         value={pl.name}
                         onChange={e => updatePlayer(pl.id, { name: e.target.value })}
                       />
-                      <div className="text-xs text-slate-500">ID: {pl.id}</div>
                     </div>
+
+                    {/*Puntos del jugador*/}
+                    <div className="w-1/3 flex flex-col items-end">
+                      <div className="w-full text-xs text-amber-500">Puntos: </div>                      
+                      <div className="w-full bg-amber-200 text-center py-1 px-2 rounded font-semibold">
+                        {pl.points}
+                      </div>
+                    </div>
+
+                    {/*Botones de añadir/quitar jugador*/}
                     <div className="flex flex-col gap-1">
-                      <button className="px-3 py-1 rounded bg-slate-200 text-sm" onClick={() => addPlayer()}>+</button>
+                      <button className="px-3 py-1 rounded bg-green-200 text-sm" onClick={() => addPlayer()}>+</button>
                       {players.length > MIN_PLAYERS && (
                         <button className="px-3 py-1 rounded bg-rose-200 text-sm" onClick={() => removePlayer(pl.id)}>-</button>
                       )}
@@ -378,7 +419,7 @@ export default function App() {
                       >
                         {Array.from(
                           { length: Math.max(1, players.length - minImpostors) },
-                          (_, i) => i + minImpostors + 1
+                          (_, i) => i + minImpostors 
                         ).map(n => (
                           <option key={n} value={n}>{n}</option>
                         ))}
@@ -416,7 +457,7 @@ export default function App() {
 
             <div className="flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-green-500 text-white" onClick={startWithAnimation}>Iniciar partida</button>
-              <button className="flex-1 rounded px-3 py-2 bg-slate-200" onClick={() => {
+              <button className="flex-1 rounded px-3 py-2 bg-red-500 text-white" onClick={() => {
                 if (!confirm('¿Estás seguro que quieres volver al número mínimo de jugadores? Se eliminarán los jugadores extra.')) return;
                 setPlayers(p => p.slice(0, MIN_PLAYERS));
               }}>Volver mínimo</button>
@@ -457,10 +498,10 @@ export default function App() {
                     return (
                       <ul className="list-disc list-inside mt-2">
                         {activePlayers.map(p => (
-                          <li key={p.id} className="flex items-center justify-between">
-                            <span className="text-blue-600">{p.name}</span>
+                          <li key={p.id} className="flex items-center justify-between gap-4 mb-2">
+                            <span className="text-blue-600 font-semibold">{p.name}</span>
                             <button
-                              className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                              className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition"
                               onClick={() => eliminatePlayer(p.id)}
                             >
                               Eliminar a jugador
@@ -481,7 +522,7 @@ export default function App() {
                   {players.map(pl => (
                     <div key={pl.id} className="flex flex-col items-center gap-1">
                       <button
-                        className={`w-20 h-20 rounded-lg shadow-sm flex items-center justify-center transition-all duration-150 ${pl.clicked ? 'bg-green-800 scale-95' : 'bg-green-200 hover:scale-105'}`}
+                        className={`w-16 h-16 rounded-lg shadow-sm flex items-center justify-center transition-all duration-150 ${pl.clicked ? 'bg-green-800 scale-95' : 'bg-green-200 hover:scale-105'}`}
                         onClick={() => setCurrentBigCard(pl.id)}
                       >
                         {/* empty square (revealed state indicated by bg) */}
