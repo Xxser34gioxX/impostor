@@ -81,7 +81,13 @@ export default function App() {
   function addPlayer() {
     setPlayers(p => {
       const nextId = p.length ? Math.max(...p.map(x => x.id)) + 1 : 1;
-      return [...p, { id: nextId, name: `Jugador ${nextId}`, clicked: false, roleRevealed: null }];
+      return [...p, { id: nextId,
+        name: `Jugador ${nextId}`, 
+        clicked: false, 
+        roleRevealed: null,
+        points: 0, 
+        alive: true, 
+        lastGain: 0 }];
     });
   }
 
@@ -97,11 +103,11 @@ export default function App() {
 
   function startGame() {
     if (players.length < MIN_PLAYERS) return alert(`Necesitas al menos ${MIN_PLAYERS} jugadores`);
-  // pick random word from selected categories
-  const wordPool = WORD_BANK.filter(w => selectedCategories.includes(w.category) && (!lightMode || !offensiveWords.includes(w.word)));
-  setGameStartedMessage(true);
-  if (wordPool.length === 0) return alert('No hay palabras en las categorías seleccionadas. Selecciona al menos una categoría.');
-  const pick = wordPool[randInt(wordPool.length)];
+    // pick random word from selected categories
+    const wordPool = WORD_BANK.filter(w => selectedCategories.includes(w.category) && (!lightMode || !offensiveWords.includes(w.word)));
+    setGameStartedMessage(true);
+    if (wordPool.length === 0) return alert('No hay palabras en las categorías seleccionadas. Selecciona al menos una categoría.');
+    const pick = wordPool[randInt(wordPool.length)];
     setSelectedWord(pick);
     // choose impostors
     const ids = players.map(p => p.id);
@@ -120,7 +126,7 @@ export default function App() {
     setImpostorIds(chosen);
     setRemainingImpostors(numToChoose);
     // reset players clicked and roleRevealed
-    setPlayers(p => p.map(pl => ({ ...pl, clicked: false, roleRevealed: null })));
+    setPlayers(p => p.map(pl => ({ ...pl, clicked: false, roleRevealed: null, alive: true })));
     setEliminatedPlayers([]);
     setEliminatedImpostors([]);
     setVictoryDialog(false);
@@ -194,6 +200,10 @@ export default function App() {
   function eliminatePlayer(id) {
   setEliminatedPlayers(prev => [...prev, id]);
 
+  setPlayers(prevPlayers => 
+    prevPlayers.map(p => p.id === id ? { ...p, alive: false } : p)
+  );
+
   if (impostorIds.includes(id)) {
     setRemainingImpostors(prev => {
       const newRemaining = prev - 1;
@@ -227,8 +237,7 @@ export default function App() {
       prevPlayers.map(p => {
         if (winnerType === "players") {
           const isNotImpostor = !impostorIds.includes(p.id);
-          const gain = isNotImpostor ? 200 : 0;
-
+          const gain = (isNotImpostor && p.alive) ? 200 : 0;
           return {
             ...p,
             points: p.points + gain,
@@ -355,11 +364,11 @@ export default function App() {
                       />
                     </div>
 
-                    {/*Puntos del jugador*/}
-                    <div className="w-1/3 flex flex-col items-end">
-                      <div className="w-full text-xs text-amber-500">Puntos: </div>                      
-                      <div className="w-full bg-amber-200 text-center py-1 px-2 rounded font-semibold">
-                        {pl.points}
+                    {/* Puntos del jugador */}
+                    <div className="w-24 flex flex-col items-end"> 
+                      <div className="w-full text-[10px] text-amber-500 font-bold uppercase">Puntos</div>                       
+                      <div className="w-full bg-amber-200 text-center py-1 rounded font-bold text-amber-900 border border-amber-300">
+                        {pl.points ?? 0} {/* El ?? 0 es un seguro de vida */}
                       </div>
                     </div>
 
@@ -603,16 +612,22 @@ export default function App() {
                   {(() => {
                     const activePlayers = players.filter(p => !eliminatedPlayers.includes(p.id));
                     return (
-                      <div className="max-h-64 overflow-y-auto border rounded-lg p-2">
-                        <ul className="list-disc list-inside mt-2">
-                          {activePlayers.map(p => (
-                            <li key={p.id} className="flex items-center justify-between gap-4 mb-2">
-                              <span className="text-blue-600 font-semibold">{p.name}</span>
+                      <div className="max-h-64 overflow-y-auto border rounded-lg p-2 bg-white/50">
+                        {/* He quitado list-disc para que el número sea el protagonista */}
+                        <ul className="list-none mt-2">
+                          {activePlayers.map((p, index) => (
+                            <li key={p.id} className="flex items-center justify-between gap-4 mb-2 p-1 border-b border-slate-100 last:border-0">
+                              <div className="flex items-center gap-2">
+                                {/* Numeración ordinal */}
+                                <span className="text-slate-400 font-mono text-sm">{index + 1}º</span>
+                                <span className="text-blue-600 font-semibold">{p.name}</span>
+                              </div>
+                              
                               <button
-                                className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition"
+                                className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition shadow-sm active:scale-95"
                                 onClick={() => eliminatePlayer(p.id)}
                               >
-                                Eliminar a jugador
+                                Eliminar
                               </button>
                             </li>
                           ))}
@@ -761,8 +776,8 @@ export default function App() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white p-6 rounded-xl max-w-md" onClick={e => e.stopPropagation()}>
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-green-600 mb-4">¡Felicidades!</h2>
-              <p className="mb-6">Eliminasteis a todos los impostores.</p>
+              <h2 className="text-2xl font-bold text-green-600 mb-4">¡Felicidades echasteis a los impostores!</h2>
+              <p className="mb-6">Eliminasteis a todos los impostores. Solo ganan puntos los jugadores que siguen vivos.</p>
 
               {/* LISTA DE JUGADORES + PUNTOS */}
               <div
