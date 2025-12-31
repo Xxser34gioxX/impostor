@@ -25,6 +25,9 @@ export default function App() {
     }))
   );
   
+  const [showNotAllRevealed, setShowNotAllRevealed] = useState(false);
+  const [finalResultsDialog, setFinalResultsDialog] = useState(false);
+  const [gameDirection, setGameDirection] = useState("LTR"); // "LTR" o "RTL" 
   const [lift, setLift] = useState(0); // 0 = tapado, 100 = totalmente levantado
   const [startingPlayer, setStartingPlayer] = useState(null);
   const [showClassForAll, setShowClassForAll] = useState(true);
@@ -36,7 +39,7 @@ export default function App() {
   const [impostorIds, setImpostorIds] = useState([]);
   const [remainingImpostors, setRemainingImpostors] = useState(0);
   const [starting, setStarting] = useState(false); // show a short animation when starting
-  const [revealImpostors, setRevealImpostors] = useState(false);
+  const [revealImpostors, setRevealImpostors] = useState(true);
   const [revealStarter, setRevealStarter] = useState(false);
   const [started, setStarted] = useState(false);
   const [currentBigCard, setCurrentBigCard] = useState(null); // player id for big view
@@ -73,6 +76,7 @@ export default function App() {
     setPlayers(p => p.map(pl => (pl.id === id ? { ...pl, ...patch } : pl)));
   }
 
+  
   function addPlayer() {
     setPlayers(p => {
       const nextId = p.length ? Math.max(...p.map(x => x.id)) + 1 : 1;
@@ -375,7 +379,8 @@ export default function App() {
               <div className="mt-2 flex flex-col gap-2">
                 <label className="flex items-center justify-between gap-2">
                   <span>Mostrar categoría/clase a todos</span>
-                  <input type="checkbox" checked={showClassForAll} onChange={e => setShowClassForAll(e.target.checked)} />
+                  <input type="checkbox" checked={showClassForAll} onChange={e => setShowClassForAll(e.target.checked)} 
+                  className="w-4 h-4"/>
                 </label>
 
                 {!randomImpostors && (
@@ -389,12 +394,27 @@ export default function App() {
                   </label>
                 )}
 
-                <label className="flex items-center justify-between gap-2">
+                <label className="flex items-center justify-between gap-2 mt-1">
                   <span>¿Impostores aleatorios?</span>
-                  <input type="checkbox" checked={randomImpostors} onChange={e => setRandomImpostors(e.target.checked)} />
+                  <input
+                    type="checkbox"
+                    checked={randomImpostors}
+                    onChange={e => setRandomImpostors(e.target.checked)}
+                    className="w-4 h-4"
+                  />
                 </label>
                 {randomImpostors && (
                   <>
+                    <label className="flex items-center justify-between gap-2 ml-4">
+                      <span>Mostrar impostores</span>
+                      <input
+                        type="checkbox"
+                        checked={revealImpostors}
+                        onChange={e => setRevealImpostors(e.target.checked)}
+                        className="w-4 h-4"
+                      />
+                    </label>
+
                     <label className="flex items-center justify-between gap-2 ml-4">
                       <span>Mínimo de impostores</span>
                       <select
@@ -434,12 +454,13 @@ export default function App() {
               <h2 className="text-sm uppercase text-blue-600">Categorías (elige las que entran en la partida)</h2>
               <label className="flex items-center justify-between gap-2 mb-2">
                 <span>Modo Light (sin palabras ofensivas)</span>
-                <input type="checkbox" checked={lightMode} onChange={e => setLightMode(e.target.checked)} />
+                <input type="checkbox" checked={lightMode} onChange={e => setLightMode(e.target.checked)} 
+                className="w-4 h-4"/>
               </label>
               <div className="mt-2 border rounded-lg p-2 max-h-44 overflow-auto">
                 <div className="flex gap-2 mb-2">
-                  <button className="px-2 py-1 bg-slate-200 rounded" onClick={selectAllCategories}>Seleccionar todo</button>
-                  <button className="px-2 py-1 bg-slate-200 rounded" onClick={clearAllCategories}>Limpiar</button>
+                  <button className="px-2 py-1 bg-green-400 rounded" onClick={selectAllCategories}>Seleccionar todo</button>
+                  <button className="px-2 py-1 bg-red-400 rounded" onClick={clearAllCategories}>Limpiar</button>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {allCategories.map(cat => {
@@ -457,10 +478,54 @@ export default function App() {
 
             <div className="flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-green-500 text-white" onClick={startWithAnimation}>Iniciar partida</button>
-              <button className="flex-1 rounded px-3 py-2 bg-red-500 text-white" onClick={() => {
-                if (!confirm('¿Estás seguro que quieres volver al número mínimo de jugadores? Se eliminarán los jugadores extra.')) return;
-                setPlayers(p => p.slice(0, MIN_PLAYERS));
-              }}>Volver mínimo</button>
+              <button
+                className={`flex-1 rounded px-3 py-2 ${
+                  players.every(p => p.points === 0)
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-red-500 text-white"
+                }`}
+                disabled={players.every(p => p.points === 0)}
+                onClick={() => setFinalResultsDialog(true)}
+              >
+                Resultado final del juego
+              </button>
+
+              {finalResultsDialog && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                  <div className="bg-white p-6 rounded-xl max-w-md w-full overflow-auto" style={{ maxHeight: '80vh' }}>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Resultado final del juego</h2>
+                    <div className="space-y-2">
+                      {players
+                        .slice()
+                        .sort((a, b) => b.points - a.points)
+                        .map((p, idx) => {
+                          let color = "";
+                          if(idx === 0) color = "text-yellow-400";
+                          else if(idx === 1) color = "text-gray-400";
+                          else if(idx === 2) color = "text-amber-800";
+                          return (
+                            <div key={p.id} className="flex justify-between items-center bg-slate-100 rounded px-2 py-1">
+                              <span className={`${color} font-bold`}>{idx + 1}º {p.name}</span>
+                              <span className="bg-yellow-400 text-white font-bold px-2 py-1 rounded">{p.points}</span>
+                            </div>
+                          );
+                        })}
+                    </div>
+                    <div className="mt-4 flex justify-center gap-2">
+                      <button
+                        className="px-3 py-1 rounded bg-red-500 text-white"
+                        onClick={() => {
+                          setVictoryDialog(false);
+                          setFinalResultsDialog(false); // Cierra el diálogo
+                          setPlayers(players.map(p => ({ ...p, points: 0, lastGain: 0 }))); // Reinicia los puntos
+                        }}
+                      >
+                        Cerrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -490,25 +555,41 @@ export default function App() {
               {revealStarter && (
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
                   <div className="font-semibold text-black">Impostores restantes: {remainingImpostors}</div>
-                  {startingPlayer && (<div className="font-semibold text-green-600"> Empieza: {startingPlayer}</div>
-                  )}
+                  <div className="font-semibold text-blue-600">
+                    La categoría es:{" "}
+                    <span className="text-lg text-blue-800 font-bold">
+                      {showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}
+                    </span>
+                  </div>
+                  <div className="mt-2 space-y-1 w-full">
+                    <div className="flex w-full">
+                      <span className="font-semibold text-green-600 w-40">Empieza:</span>
+                      <span className="text-lg text-green-800 font-bold">{startingPlayer}</span>
+                    </div>
+                    <div className="flex w-full">
+                      <span className="font-semibold text-yellow-500 w-40">Sentido de juego:</span>
+                      <span className="text-lg text-yellow-800 font-bold">{gameDirection === "LTR" ? "De izquierda a derecha" : "De derecha a izquierda"}</span>
+                    </div>
+                  </div>
                   <div className="font-semibold text-red-600">Elimina los impostores:</div>
                   {(() => {
                     const activePlayers = players.filter(p => !eliminatedPlayers.includes(p.id));
                     return (
-                      <ul className="list-disc list-inside mt-2">
-                        {activePlayers.map(p => (
-                          <li key={p.id} className="flex items-center justify-between gap-4 mb-2">
-                            <span className="text-blue-600 font-semibold">{p.name}</span>
-                            <button
-                              className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition"
-                              onClick={() => eliminatePlayer(p.id)}
-                            >
-                              Eliminar a jugador
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="max-h-64 overflow-y-auto border rounded-lg p-2">
+                        <ul className="list-disc list-inside mt-2">
+                          {activePlayers.map(p => (
+                            <li key={p.id} className="flex items-center justify-between gap-4 mb-2">
+                              <span className="text-blue-600 font-semibold">{p.name}</span>
+                              <button
+                                className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition"
+                                onClick={() => eliminatePlayer(p.id)}
+                              >
+                                Eliminar a jugador
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     );
                   })()}
                 </div>
@@ -586,9 +667,43 @@ export default function App() {
             <div className="mt-3 flex gap-2">
               <button className="flex-1 rounded px-3 py-2 bg-red-600 text-white" onClick={() => setRevealImpostors(prev => !prev)}>Revelar impostores</button>
               <button className="flex-1 rounded px-3 py-2 bg-green-600 text-white" onClick={() => setRevealStarter(true)}>Revelar quién empieza</button>
-              <button className="flex-1 rounded px-3 py-2 bg-violet-600 text-white" onClick={() => { newGameKeepPlayers(); startWithAnimation(); }}>Siguiente partida</button>
+              <button
+                className="flex-1 rounded px-3 py-2 bg-violet-600 text-white"
+                onClick={() => {
+                  if (!players.every(p => p.clicked)) {
+                    setShowNotAllRevealed(true); // Mostrar mensaje
+                    return;
+                  }
+                  newGameKeepPlayers();
+                  startWithAnimation();
+                }}
+              >
+                Siguiente partida
+              </button>
             </div>
-
+            
+            {showNotAllRevealed && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                onClick={() => setShowNotAllRevealed(false)} // clic fuera cierra
+              >
+                <div
+                  className="bg-white p-6 rounded-xl max-w-sm w-full"
+                  onClick={e => e.stopPropagation()} // evita cerrar al clicar dentro
+                >
+                  <h2 className="text-xl font-bold mb-2 text-center text-red-600">¡Atención!</h2>
+                  <p className="text-center mb-4">Aún no todas las tarjetas fueron reveladas.</p>
+                  <div className="flex justify-center">
+                    <button
+                      className="px-4 py-2 rounded bg-red-500 text-white"
+                      onClick={() => setShowNotAllRevealed(false)}
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
             {resultsShown && (
               <div className="mt-4 border rounded-lg p-3 bg-slate-50">
                 <h3 className="font-semibold mb-2">Resultados</h3>
@@ -657,6 +772,17 @@ export default function App() {
 
               {/* BOTONES */}
               <div className="flex gap-4 justify-center">
+                {/*<button
+                className={`flex-1 rounded px-3 py-2 ${
+                  players.every(p => p.points === 0)
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-red-500 text-white"
+                }`}
+                disabled={players.every(p => p.points === 0)}
+                onClick={() => setFinalResultsDialog(true)}
+              >
+                Resultado final del juego
+              </button>*/}
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                   onClick={() => { setVictoryDialog(false); endToMenu(); }}
