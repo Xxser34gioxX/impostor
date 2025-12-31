@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import WORD_BANK from './file/words.json';
 import imagenMontania from './img/ImagenMontania.jpg';
+import imagenMojito from './img/mojito.mp4';
 
 
 const DEFAULT_PLAYERS = 4;
@@ -300,15 +301,22 @@ export default function App() {
 
   return (
     
-    <div className="min-h-screen w-full"
-    style={{
-    backgroundImage: `url(${imagenMontania})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-    
-  }}
->
+  <div className="relative min-h-screen w-full">
+      {/* VIDEO DE FONDO */}
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="fixed top-[-35%] left-0 w-[250%] h-[170%] object-contain -z-10 pointer-events-none"
+    >
+      <source src={imagenMojito} type="video/mp4" />
+    </video>
+    {/* CAPA OSCURA */}
+    <div className="absolute inset-0 w-[105%] h-[105%] bg-black/20 -z-0 pointer-events-none"></div>
+
+    {/* CONTENIDO DE LA APP */}
+    <div className="relative z-10"></div>
 
       {starting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -318,7 +326,7 @@ export default function App() {
           </div>
         </div>
       )}
-      <div className="transparent-bg min-h-screen p-4 max-w-2xl mx-auto bg-white/50 border border-white/30 rounded-2xl shadow-2xl p-4">
+      <div className="transparent-bg min-h-screen p-4 max-w-2xl mx-auto bg-white/70 border border-white/120 rounded-2xl shadow-2xl p-4">
       
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-2xl font-bold">Juego del impostor</h1>
@@ -334,7 +342,7 @@ export default function App() {
             <section className="mb-4">
               <div className="flex justify-between font-bold text-lg mb-2 px-2"> <span className="text-blue-500 w-1/3">Jugadores</span> 
               <span className="w-1/3 text-right text-amber-500">Puntos</span> <span className="text-green-500 w-1/3 text-right">Acciones</span> </div>
-              <div className="mt-2 border rounded-lg p-2 max-h-64 overflow-auto">
+              <div className="mt-2 border rounded-2xl p-2 max-h-64 overflow-auto bg-white/30 custom-scroll">
                 {players.map((pl, idx) => (
                   <div key={pl.id} className="flex items-center gap-2 py-2">
                     {/*Nombre del jugador*/}
@@ -375,8 +383,8 @@ export default function App() {
             </section>
 
             <section className="mb-4">
-              <h2 className="font-semibold">Opciones</h2>
-              <div className="mt-2 flex flex-col gap-2">
+              <h2 className="font-semibold underline underline-offset-4">Opciones:</h2>
+              <div className="max-h-40 overflow-auto no-scrollbar mt-2 flex flex-col gap-2 bg-white/30 p-3 rounded-lg">
                 <label className="flex items-center justify-between gap-2">
                   <span>Mostrar categoría/clase a todos</span>
                   <input type="checkbox" checked={showClassForAll} onChange={e => setShowClassForAll(e.target.checked)} 
@@ -450,14 +458,26 @@ export default function App() {
               </div>
             </section>
 
+            <label className="flex items-center justify-between gap-2 mb-2 font-bold">
+              <div className="flex items-center gap-2">
+                {/* El punto decorativo */}
+                <span className="w-1.5 h-1.5 bg-black border border-black rounded-full shadow-sm"></span>
+                
+                <span>Modo Light (sin palabras ofensivas)</span>
+              </div>
+
+              <input 
+                type="checkbox" 
+                checked={lightMode} 
+                onChange={e => setLightMode(e.target.checked)} 
+                className="w-4 h-4 accent-green-600"
+              />
+            </label>
+            
             <section className="mb-4">
               <h2 className="text-sm uppercase text-blue-600">Categorías (elige las que entran en la partida)</h2>
-              <label className="flex items-center justify-between gap-2 mb-2">
-                <span>Modo Light (sin palabras ofensivas)</span>
-                <input type="checkbox" checked={lightMode} onChange={e => setLightMode(e.target.checked)} 
-                className="w-4 h-4"/>
-              </label>
-              <div className="mt-2 border rounded-lg p-2 max-h-44 overflow-auto">
+              
+              <div className="mt-2 border rounded-lg p-2 max-h-44 overflow-auto bg-white/30 custom-scroll">
                 <div className="flex gap-2 mb-2">
                   <button className="px-2 py-1 bg-green-400 rounded" onClick={selectAllCategories}>Seleccionar todo</button>
                   <button className="px-2 py-1 bg-red-400 rounded" onClick={clearAllCategories}>Limpiar</button>
@@ -554,22 +574,30 @@ export default function App() {
               )}
               {revealStarter && (
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
-                  <div className="font-semibold text-black">Impostores restantes: {remainingImpostors}</div>
-                  <div className="font-semibold text-blue-600">
-                    La categoría es:{" "}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-semibold text-black">Impostores restantes:</span>
+                    <span className="text-lg text-black font-bold">{remainingImpostors}</span>
+                  </div>
+                  {/* La categoría es: */}
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-blue-600">La categoría es:</span>
                     <span className="text-lg text-blue-800 font-bold">
                       {showClassForAll ? selectedWord?.category : (selectedWord ? '???' : '')}
                     </span>
                   </div>
-                  <div className="mt-2 space-y-1 w-full">
-                    <div className="flex w-full">
-                      <span className="font-semibold text-green-600 w-40">Empieza:</span>
-                      <span className="text-lg text-green-800 font-bold">{startingPlayer}</span>
-                    </div>
-                    <div className="flex w-full">
-                      <span className="font-semibold text-yellow-500 w-40">Sentido de juego:</span>
-                      <span className="text-lg text-yellow-800 font-bold">{gameDirection === "LTR" ? "De izquierda a derecha" : "De derecha a izquierda"}</span>
-                    </div>
+                  {/* Fila 3: Empieza */}
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-green-600">Empieza:</span>
+                    <span className="text-lg text-green-800 font-bold">
+                      {startingPlayer}
+                    </span>
+                  </div>
+                  {/* Fila 4: Sentido */}
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-yellow-500">Sentido de juego:</span>
+                    <span className="text-lg text-yellow-500 font-bold">
+                      {gameDirection === "LTR" ? "De izquierda a derecha" : "De derecha a izquierda"}
+                    </span>
                   </div>
                   <div className="font-semibold text-red-600">Elimina los impostores:</div>
                   {(() => {

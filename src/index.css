@@ -23,3 +23,31 @@ body { @apply bg-slate-50 }
 .animate-scale-up {
   animation: scaleUp 0.3s ease forwards;
 }
+/* Scrollbar solo para el contenedor de jugadores */
+.custom-scroll::-webkit-scrollbar {
+  width: 10px;           /* ancho de la barra */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;  /* fondo del track */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.7); /* gris tipo slate-400 */
+  border-radius: 9999px;                /* súper redondeado */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.9); /* un poco más oscuro al pasar */
+}
+
+/* Ocultar scrollbar en Chrome, Edge, Safari */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar scrollbar en Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
